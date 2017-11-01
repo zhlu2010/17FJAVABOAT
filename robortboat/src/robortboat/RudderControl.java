@@ -18,14 +18,15 @@ import javax.swing.event.ChangeListener;
 
  
 public class RudderControl extends JFrame {
-	public double x1=300;
-	public double y1=620;
-	public double x2=300;
-	public double y2=700;
-	public double XX;
-	public double YY;
+	public static double x1=300;
+	public static double y1=620;
+	public static double x2=300;
+	public static double y2=700;
+	public static double XX;
+	public static double YY;
 	public static final double pi = 3.1415926;
-	public JSlider lrc;
+	//public JSlider lrc;
+	public static JLabel l1;
          class MyPanel extends JPanel {
  
                    /**
@@ -51,12 +52,13 @@ public class RudderControl extends JFrame {
         	 		p1.setBounds(0,0,600,800);
                    this.setSize(600, 1000);
                    p1.setLayout(null);
+                   setLocation(1200,0);
                    
-                   JLabel l1 = new JLabel("Rudder angle is 90 degree");
-                   l1.setBounds(20,80,200,30);
+                   l1 = new JLabel("Rudder angle is 90 degree");
+                   l1.setBounds(220,700,200,30);
                    p1.add(l1);
                    
-                   lrc = new JSlider(JSlider.HORIZONTAL);
+                   /*lrc = new JSlider(JSlider.HORIZONTAL);
                    lrc.setMinimum(0);
                    lrc.setMaximum(180);
                    lrc.setValue(90);                   
@@ -77,20 +79,21 @@ public class RudderControl extends JFrame {
 						x2=x2+x1;
 						y2=y2+y1;
 						repaint();
-           				l1.setText("Rudder angle is "+lrc.getValue()+" degree");           				
+           				l1.setText("Rudder angle is "+lrc.getValue()+" degree");
+           				
            			}
            		}
-            );
+                	  );
                    p1.add(lrc);
-                   lrc.setBounds(0,50,200,30);
+                   lrc.setBounds(0,50,200,30);*/
                    
-                   setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+                   setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                   setVisible(true);
          }
  
-         public static void main(String[] args) {
+       /*  public static void main(String[] args) {
                    RudderControl frame = new RudderControl();
                    
                
-         }
+         }*/
 }

@@ -5,11 +5,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 public  class Manual extends JPanel{
 	public static JTextArea t1;
 	public static JTextArea t2;
-	public static JTextArea t3;
+	//public static JTextArea t3;
+	public static JSlider rdslider;
+	
 	public Manual() {
 	     // cm.setBounds(0, 100, 500, 500);
 	      setLayout(null);
@@ -37,15 +41,27 @@ public  class Manual extends JPanel{
 	      
 	      
 	    
-	     JButton b3 = new JButton("ok");
+	     /*JButton b3 = new JButton("ok");
 	      b3.setBounds(160, 130, 50, 30);
-	      add(b3);
+	      add(b3);	     
+	      
+	      t3 = new JTextArea("0");
+	      t3.setBounds(100,130, 50, 30);
+	      add(t3);*/
 	      JLabel l3 = new JLabel("rudder");
 	      l3.setBounds(30,130, 70, 30);
 	      add(l3);
-	      t3 = new JTextArea("0");
-	      t3.setBounds(100,130, 50, 30);
-	      add(t3);
+	      rdslider = new JSlider(JSlider.HORIZONTAL);
+	      rdslider.setBounds(100,130,200,30);
+	      rdslider.setMinimum(0);
+	      rdslider.setMaximum(180);
+	      rdslider.setValue(90); 
+	      add(rdslider);
+	      JLabel lbforSlider = new JLabel(""+90);
+	      lbforSlider.setBounds(310,130,50,30);
+	      add(lbforSlider);
+	      RudderControl rc1 = new RudderControl();
+	      
 	     
 	    
 	      JButton b4 = new JButton("on/off");
@@ -75,7 +91,29 @@ public  class Manual extends JPanel{
 					}
 		        }
 		);
-	      b3.addActionListener(
+	      rdslider.addChangeListener(
+            	  new ChangeListener()  {
+       			public void stateChanged(ChangeEvent e) {
+       				double rdang = 0;						
+						rdang = (new Double(rdslider.getValue())).doubleValue();
+						rdang = (rdang-90) * (RudderControl.pi/180);
+						RudderControl.x2 = 300;
+						RudderControl.y2 = 700;
+						double mycos = Math.cos(rdang);
+			            double mysin = Math.sin(rdang);
+			            RudderControl.XX = RudderControl.x2 - RudderControl.x1;
+			            RudderControl.YY = RudderControl.y2 - RudderControl.y1;
+			            RudderControl.x2=(double)(-(RudderControl.XX*mycos-RudderControl.YY*mysin));
+			            RudderControl.y2=(double)(RudderControl.XX*mysin+RudderControl.YY*mycos);
+			            RudderControl.x2=RudderControl.x2+RudderControl.x1;
+			            RudderControl.y2=RudderControl.y2+RudderControl.y1;
+			            rc1.repaint();
+       				    RudderControl.l1.setText("Rudder angle is "+rdslider.getValue()+" degree");
+       				    lbforSlider.setText(""+rdslider.getValue());
+       			}
+       		}
+            	  );
+	/*      b3.addActionListener(
 					new ActionListener() {
 						public void actionPerformed(ActionEvent e4) {				
 							double enterrdang = 0;							
@@ -83,6 +121,6 @@ public  class Manual extends JPanel{
 							Dashboard.ld3.setText("Rudder angle:  "+enterrdang+" Degree");
 					}
 		        }
-		);
+		);*/
 	}
 }
