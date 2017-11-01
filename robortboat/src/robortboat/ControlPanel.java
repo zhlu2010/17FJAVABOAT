@@ -36,8 +36,7 @@ public class ControlPanel extends JFrame {
 				}
 	        }
 	);
-       
-        
+
         JButton bc2 = new JButton("Manual");
         bc2.setBounds(270,20, 130, 30);
         bc2.addActionListener(

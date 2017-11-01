@@ -15,8 +15,6 @@ import javax.swing.JTextArea;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
-
- 
 public class RudderControl extends JFrame {
 	public static double x1=300;
 	public static double y1=620;
@@ -25,14 +23,8 @@ public class RudderControl extends JFrame {
 	public static double XX;
 	public static double YY;
 	public static final double pi = 3.1415926;
-	//public JSlider lrc;
 	public static JLabel l1;
          class MyPanel extends JPanel {
- 
-                   /**
-                    *
-                    */
-                 //  private static final long serialVersionUID = 1L;
  
                    public void paint(Graphics graphics) {
                             super.paint(graphics);
@@ -57,43 +49,8 @@ public class RudderControl extends JFrame {
                    l1 = new JLabel("Rudder angle is 90 degree");
                    l1.setBounds(220,700,200,30);
                    p1.add(l1);
-                   
-                   /*lrc = new JSlider(JSlider.HORIZONTAL);
-                   lrc.setMinimum(0);
-                   lrc.setMaximum(180);
-                   lrc.setValue(90);                   
-                  lrc.addChangeListener(
-                	  new ChangeListener()  {
-           			public void stateChanged(ChangeEvent e) {
-           				double rdang = 0;						
-							rdang = (new Double(lrc.getValue())).doubleValue();
-							rdang = (rdang-90) * (pi/180);
-							x2 = 300;
-							y2 = 700;
-							double mycos = Math.cos(rdang);
-				            double mysin = Math.sin(rdang);
-				            XX = x2 - x1;
-				            YY = y2 - y1;
-				         x2=(double)(-(XX*mycos-YY*mysin));
-				         y2=(double)(XX*mysin+YY*mycos);
-						x2=x2+x1;
-						y2=y2+y1;
-						repaint();
-           				l1.setText("Rudder angle is "+lrc.getValue()+" degree");
-           				
-           			}
-           		}
-                	  );
-                   p1.add(lrc);
-                   lrc.setBounds(0,50,200,30);*/
-                   
-                   setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
                   setVisible(true);
          }
- 
-       /*  public static void main(String[] args) {
-                   RudderControl frame = new RudderControl();
-                   
-               
-         }*/
 }
+
+
