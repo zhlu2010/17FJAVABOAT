@@ -6,5 +6,6 @@ public class Main {
 		//new DrawDashBoard();
 		new ControlPanel();
 		new Map();
+		
 	}
 }

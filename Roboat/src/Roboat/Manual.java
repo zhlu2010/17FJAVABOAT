@@ -11,6 +11,7 @@ public class Manual extends JPanel {
 	public static JTextArea mtaPropellor1;
 	public static JTextArea mtaPropellor2;
 	public static JSlider sliderRudder;
+	public static DrawDashBoard rc1;
 	public Manual() {
 		setLayout(null);
 		setBounds(0, 0, 800, 400);
@@ -39,10 +40,10 @@ public class Manual extends JPanel {
 		sliderRudder.setMaximum(180);
 		sliderRudder.setValue(90);
 		add(sliderRudder);
-		JLabel lblforSlider = new JLabel(""+90);
+		JLabel lblforSlider = new JLabel(90+"бу");
 		lblforSlider.setBounds(320,150,50,30);
 	    add(lblforSlider);
-	    DrawDashBoard rc1 = new DrawDashBoard();
+	    rc1 = new DrawDashBoard();
 		
 	    sliderRudder.addChangeListener(new ChangeListener()  {
 	    	public void stateChanged(ChangeEvent e) {
@@ -50,7 +51,7 @@ public class Manual extends JPanel {
      			rdang = (new Double(sliderRudder.getValue())).doubleValue();
 				rdang = (rdang-90)*(Math.PI/180);
 				DrawDashBoard.xRudder2=200;
-				DrawDashBoard.yRudder2=760;
+				DrawDashBoard.yRudder2=740;
 				double mycos = Math.cos(rdang);
 	            double mysin = Math.sin(rdang);
 	            DrawDashBoard.XX = DrawDashBoard.xRudder2 - DrawDashBoard.xRudder1;
@@ -60,8 +61,8 @@ public class Manual extends JPanel {
 	            DrawDashBoard.xRudder2+=DrawDashBoard.xRudder1;
 	            DrawDashBoard.yRudder2+=DrawDashBoard.yRudder1;
 	            rc1.repaint();
-	            DrawDashBoard.lblRudder.setText("Rudder: "+sliderRudder.getValue());
-	            lblforSlider.setText(""+sliderRudder.getValue());		
+	            DrawDashBoard.lblRudder.setText("Rudder: "+sliderRudder.getValue()+"бу");
+	            lblforSlider.setText(""+sliderRudder.getValue()+"бу");		
 	    	}
 	    });
 	    
@@ -92,21 +93,21 @@ public class Manual extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			double numSpeed = 0;						
 			numSpeed = (new Double(mtaSpeed.getText())).doubleValue(); 
-			DashBoard.lblSpeed.setText("Speed: "+numSpeed);
+			//DrawDashBoard.Propellor1speed.setText("Speed: "+numSpeed);
 		}
 	}
     class mbtnPropellor1 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			double numPropellor1 = 0;						
 			numPropellor1 = (new Double(mtaPropellor1.getText())).doubleValue(); 
-			DashBoard.lblPropellor1.setText("Propellor 1: "+numPropellor1);
+			DrawDashBoard.Propellor1speed.setText(""+numPropellor1);
 		}
 	}
     class mbtnPropellor2 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			double numPropellor2 = 0;						
 			numPropellor2 = (new Double(mtaPropellor2.getText())).doubleValue(); 
-			DashBoard.lblPropellor2.setText("Propellor 2: "+numPropellor2);
+			DrawDashBoard.Propellor2speed.setText(""+numPropellor2);
 		}
 	}
 }
