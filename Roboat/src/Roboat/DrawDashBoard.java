@@ -7,9 +7,11 @@ class DrawDashBoard extends JFrame {
     private int[] xRoboat = {200,100,100,300,300,200};
     private int[] yRoboat = {30, 300,700,700,300,30 };
     private int[] xBattery = {195,195,185,185,215,215,205,205,195};
-    private int[] yBattery = {300,305,305,400,400,305,305,300,300};
-    private int[] xGas = {200,200,195,200,205};
-    private int[] yGas = {560,500,505,500,505};
+    private int[] yBattery = {300,305,305,406,406,305,305,300,300};
+    public static int[] xGas = {200,243,236,243,241};
+    public static int[] yGas = {550,525,524,525,532};
+    public static int[] xGasRot = xGas;
+    public static int[] yGasRot = yGas;
     private int[] xPropellor1 = {135,135,115,155};
     private int[] yPropellor1 = {700,720,720,720};
     private int[] xPropellor2 = {265,265,245,285};
@@ -24,7 +26,7 @@ class DrawDashBoard extends JFrame {
 	public static JLabel Propellor1speed;
 	public static JLabel Propellor2speed;
 	public static int BatteryPower1 = 306;
-	public static int BatteryPower2 = 94;
+	public static int BatteryPower2 = 100;
 	public static int BatteryColorR=0;
 	public static int BatteryColorG=255;
 	
@@ -65,7 +67,7 @@ class DrawDashBoard extends JFrame {
             g.fillRect(186, BatteryPower1, 29, BatteryPower2);
             g.setColor(Color.black);
             g.drawArc(150, 500, 100, 100, 30, 120);
-            g.drawPolyline(xGas, yGas, xGas.length);
+            g.drawPolyline(xGasRot, yGasRot, xGasRot.length);
             g.drawPolyline(xPropellor1, yPropellor1, xPropellor1.length);
             g.drawPolyline(xPropellor2, yPropellor2, xPropellor2.length);
             g.drawLine((int)xRudder1, (int)yRudder1, (int)xRudder2, (int)yRudder2);

@@ -11,6 +11,8 @@ public class Manual extends JPanel {
 	public static JTextArea mtaPropellor1;
 	public static JTextArea mtaPropellor2;
 	public static JSlider sliderRudder;
+	//public static JSlider slideroil;
+	public static double oilAngle = 0;
 	public static DrawDashBoard rc1;
 	public Manual() {
 		setLayout(null);
@@ -44,6 +46,13 @@ public class Manual extends JPanel {
 		lblforSlider.setBounds(320,150,50,30);
 	    add(lblforSlider);
 	    rc1 = new DrawDashBoard();
+	    
+	    /*slideroil = new JSlider(JSlider.HORIZONTAL);
+	    slideroil.setBounds(350,150,180,30);
+	    slideroil.setMinimum(30);
+	    slideroil.setMaximum(150);
+		slideroil.setValue(90);
+		add(slideroil);*/
 		
 	    sliderRudder.addChangeListener(new ChangeListener()  {
 	    	public void stateChanged(ChangeEvent e) {
@@ -65,6 +74,18 @@ public class Manual extends JPanel {
 	            lblforSlider.setText(""+sliderRudder.getValue()+"бу");		
 	    	}
 	    });
+	    /*slideroil.addChangeListener(new ChangeListener()  {
+	    	public void stateChanged(ChangeEvent e) {
+     			double oilang = 0;						
+     			oilang = (new Double(slideroil.getValue())).doubleValue();
+				Rotation r1 = new Rotation(200,550,DrawDashBoard.xGas,DrawDashBoard.yGas,oilang);
+				DrawDashBoard.xGasRot=r1.Xcoordinate();
+				DrawDashBoard.yGasRot=r1.Ycoordinate();				
+	            rc1.repaint();
+	            
+	           		
+	    	}
+	    });*/
 	    
 		JLabel mlblPropellor1 = new JLabel("Propellor 1");
 		mlblPropellor1.setBounds(50, 200, 80, 30);
