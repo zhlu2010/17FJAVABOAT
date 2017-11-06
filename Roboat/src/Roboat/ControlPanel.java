@@ -7,7 +7,7 @@ public class ControlPanel extends JFrame{
     public ControlPanel() {
     	super("Control Panel");
     	setLayout(null);
-    	setBounds(550, 10, 800, 400);
+    	setBounds(400, 10, 800, 400);
     	Container c=getContentPane();
     	addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {

@@ -9,19 +9,20 @@ public class DashBoard extends JFrame{
 	public static JLabel lblPropellor1;
 	public static JLabel lblPropellor2;
 	
+	public static JLabel lblBattery;
 	public static JLabel lblTemperature;
 
 	public DashBoard() {
 		super("Dash Board");
 		setLayout(null);
 		Container c=getContentPane();
-		setBounds(10, 50, 800, 500);
+		setBounds(1200, 50, 700, 400);
 		
 		lblSpeed = new JLabel("Speed: "+0.0);
 		lblSpeed.setBounds(50, 100, 200, 30);
 		c.add(lblSpeed);
 		
-		lblRudder = new JLabel("Rudder: "+0.0);
+		lblRudder = new JLabel("Rudder: "+0.0+" degree");
 		lblRudder.setBounds(50, 150, 200, 30);
 		c.add(lblRudder);
 		
@@ -34,19 +35,19 @@ public class DashBoard extends JFrame{
 		c.add(lblPropellor2);
 		
 		JLabel lblAccelaration = new JLabel("Accelaration");
-		lblAccelaration.setBounds(450, 100, 200, 30);
+		lblAccelaration.setBounds(400, 100, 200, 30);
 		c.add(lblAccelaration);
 
 		JLabel lblRotation = new JLabel("Rotation");
-		lblRotation.setBounds(450, 150, 200, 30);
+		lblRotation.setBounds(400, 150, 200, 30);
 		c.add(lblRotation);
 		
-		JLabel lblBattery = new JLabel("Battery");
-		lblBattery.setBounds(450, 200, 200, 30);
+		lblBattery = new JLabel("Battery: "+100+"%");
+		lblBattery.setBounds(400, 200, 200, 30);
 		c.add(lblBattery);
 		
 		lblTemperature = new JLabel("Temperature");
-		lblTemperature.setBounds(450, 250, 200, 30);
+		lblTemperature.setBounds(400, 250, 200, 30);
 		c.add(lblTemperature);
 		
 		setVisible(true);
