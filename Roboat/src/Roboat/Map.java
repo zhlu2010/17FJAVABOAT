@@ -9,7 +9,7 @@ public class Map extends JFrame{
 	//public static int i=1;
 	public Map() throws IOException{
 		super("Map");
-		setBounds(400,450,1000,550);
+		setBounds(550,450,1000,550);
 		MyMouseListener ml=new MyMouseListener();
 		addMouseListener(ml);
 		Container c=getContentPane();
