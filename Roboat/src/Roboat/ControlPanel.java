@@ -3,8 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ControlPanel extends JFrame{
-    public ControlPanel() {
+public class ControlPanel extends JFrame{    
+	public ControlPanel() {
     	super("Control Panel");
     	setLayout(null);
     	setBounds(550, 10, 800, 400);
@@ -23,8 +23,8 @@ public class ControlPanel extends JFrame{
         btnAuto.setBounds(300, 10, 100, 30);
 		JButton btnManual=new JButton("Manual");
 		btnManual.setBounds(450, 10, 100, 30);
-		JButton btnMap=new JButton("Map");
-		btnMap.setBounds(700, 10, 70, 30);
+		JButton btnCharge=new JButton("Charge");
+		btnCharge.setBounds(670, 10, 100, 30);
 		
 		btnAuto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -40,12 +40,27 @@ public class ControlPanel extends JFrame{
 				Manual.setVisible(true);
 			}
 		});
-		btnMap.addActionListener(new ActionListener() {
+		btnCharge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				DrawDashBoard.xredCompass = DrawDashBoard.xredCompassOrigin;
+				DrawDashBoard.yredCompass = DrawDashBoard.yredCompassOrigin;
+				DrawDashBoard.xwhiteCompass = DrawDashBoard.xwhiteCompassOrigin;
+				DrawDashBoard.ywhiteCompass = DrawDashBoard.ywhiteCompassOrigin;
+				DrawDashBoard.xGasRot = DrawDashBoard.xGas;
+				DrawDashBoard.yGasRot = DrawDashBoard.yGas;
+				DrawDashBoard.BatteryColorR=0;
+				DrawDashBoard.BatteryColorG=255;
+				DrawDashBoard.oilAngle = 0;
+				DrawDashBoard.compassAngle = 0;
+				DrawDashBoard.Propellor1speed.setText("0");
+				DrawDashBoard.Propellor2speed.setText("0");
+				DrawDashBoard.BatteryPower1 = 306;
+				DrawDashBoard.BatteryPower2 = 100;
+				Manual.rc1.repaint();
+	            Main.map.repaint();
 			}
 		});
-		c.add(btnAuto);c.add(btnManual);c.add(btnMap);
+		c.add(btnAuto);c.add(btnManual);c.add(btnCharge);
 		c.add(Welcome);c.add(Auto);c.add(Manual);
 		Welcome.setVisible(true);
 		Auto.setVisible(false);					

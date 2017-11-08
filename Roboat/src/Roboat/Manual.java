@@ -11,9 +11,9 @@ public class Manual extends JPanel {
 	public static JTextArea mtaPropellor1;
 	public static JTextArea mtaPropellor2;
 	public static JSlider sliderRudder;
-	//public static JSlider slideroil;
-	public static double oilAngle = 0;
+	//public static JSlider slideroil;	
 	public static DrawDashBoard rc1;
+	
 	public Manual() {
 		setLayout(null);
 		setBounds(0, 0, 800, 400);
