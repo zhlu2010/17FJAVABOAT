@@ -13,7 +13,9 @@ public class Map extends JFrame{
 		MyMouseListener ml=new MyMouseListener();
 		addMouseListener(ml);
 		Container c=getContentPane();
-		String picPath="C:"+File.separator+"1Stevens Stuff"+File.separator+"3EE552-Engineering Programming-Java"+File.separator+"earthmap.jpg";
+		//TODO: remove dependency on operating system.  This only works on Windows
+		//		String picPath="C:"+File.separator+"1Stevens Stuff"+File.separator+"3EE552-Engineering Programming-Java"+File.separator+"earthmap.jpg";
+		String picPath="earthmap.jpg";
 		File sourceimage = new File(picPath);
 		Image image = ImageIO.read(sourceimage);
 		JLabel label = new JLabel(new ImageIcon(image));

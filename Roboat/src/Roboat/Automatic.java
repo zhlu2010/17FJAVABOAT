@@ -3,17 +3,30 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
 import java.util.TimerTask;
-
+//TODO: Add comments to every file show the author
 import javax.swing.*;
-
+/**
+ * @author _____
+ * Explain what this class does in one setence
+ */
 public class Automatic extends JPanel {
-	public static JTextArea Longitude;
+	//	private DrawDashBoard dashboard;
+	public static JTextArea Longitude; //TODO: make variables private and non-static so we can support more than one boat
 	public static JTextArea Latitude;
 	public static boolean openmap = false;
-	public Automatic() {
+
+	private void setCompassAngle() {
+		//		dashboard.setCompassAngle(Math.atan2(ClickMap.DestinationY-ClickMap.CurrentY, ClickMap.DestinationX-ClickMap.CurrentX));
+		//   							if (ClickMap.DestinationY-ClickMap.CurrentY > 0) {
+   	//							 DrawDashBoard.compassAngle = DrawDashBoard.compassAngle +180;
+   	//						}
+	}
+
+
+	public Automatic() { //TODO: Too much in one function.  Break up.
 		setBounds(0, 0, 800, 400);
 		setLayout(null);
-		JLabel lblAuto = new JLabel("Auto Control");
+		JLabel lblAuto = new JLabel("Auto Control"); //TODO: better layout??
 		lblAuto.setBounds(100, 0, 200, 100);
 		lblAuto.setForeground(Color.red);
 		add(lblAuto);
@@ -58,14 +71,27 @@ public class Automatic extends JPanel {
 		add(go);
 		go.addActionListener(
 					new ActionListener() {
-   						public void actionPerformed(ActionEvent e) {				
-   							DrawDashBoard.Propellor1speed.setText("100.0");
-   							DrawDashBoard.Propellor2speed.setText("100.0");
+   						public void actionPerformed(ActionEvent e) {
+								/*
+									dashboard.setPropeller1Speed(100);
+									dashboard.setPropeller2Speed(100);
+									setCompass();
+
+
+
+
+
+								 */								
+   							DrawDashBoard.Propellor1speed.setText("100.0"); // TODO: dashboard.setPropeller1Speed(100.0);
+   							DrawDashBoard.Propellor2speed.setText("100.0"); // TODO: dashboard.setPropeller2Speed(100.0);
+								// TODO: this code should be hidden in the dashboard.  This si a detail of drawing a compass.
    							DrawDashBoard.xredCompass = DrawDashBoard.xredCompassOrigin;
    							DrawDashBoard.yredCompass = DrawDashBoard.yredCompassOrigin;
    							DrawDashBoard.xwhiteCompass = DrawDashBoard.xwhiteCompassOrigin;
    							DrawDashBoard.ywhiteCompass = DrawDashBoard.ywhiteCompassOrigin;
-   							   							
+
+
+								//TODO: setCompassAngle();
    							DrawDashBoard.compassAngle = - Math.toDegrees(Math.atan((double)(ClickMap.DestinationX-ClickMap.CurrentX)/(double)(ClickMap.DestinationY-ClickMap.CurrentY)));
    							if (ClickMap.DestinationY-ClickMap.CurrentY > 0) {
    								 DrawDashBoard.compassAngle = DrawDashBoard.compassAngle +180;
@@ -79,6 +105,7 @@ public class Automatic extends JPanel {
 							
 							ClickMap.Xdistance = Math.abs(ClickMap.DestinationX-ClickMap.CurrentX);
 							
+							//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
 							double directiontheta = (DrawDashBoard.compassAngle)*(Math.PI/180);					
    							Timer timer = new Timer();
    				        timer.schedule(new TimerTask() {

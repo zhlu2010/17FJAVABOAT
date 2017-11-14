@@ -2,10 +2,12 @@ package Roboat;
 
 import java.awt.*;
 import javax.swing.*;
+import static java.lang.Math.*;
 
 class DrawDashBoard extends JFrame {
-    private int[] xRoboat = {200,100,100,300,300,200};
-    private int[] yRoboat = {30, 300,700,700,300,30 };
+	//TODO: These constants that are always the same can be final, static and convention is X_ROBOAT
+    private final static int[] xRoboat = {200,100,100,300,300,200};
+    private final static int[] yRoboat = {30, 300,700,700,300,30 };
     private int[] xBattery = {195,195,185,185,215,215,205,205,195};
     private int[] yBattery = {300,305,305,406,406,305,305,300,300};
     public static int[] xGas = {200,243,236,243,241};
@@ -68,6 +70,8 @@ class DrawDashBoard extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
+
+	//TODO: convention is DashPanel
     class dashPanel extends JPanel {
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -90,10 +94,10 @@ class DrawDashBoard extends JFrame {
             g.setColor(Color.black);*/
             g.drawOval(xCompass, yCompass, rCompass*2, rCompass*2);
             g.setColor(Color.red);
-            int x1 = (int) ((rCompass - 10) * Math.sin(rad));  
+            int x1 = (int) ((rCompass - 10) * sin(rad));   //TODO: for math-intensive code using static import as above
             int y1 = (int) ((rCompass - 10) * Math.cos(rad));  
             g.drawString("N", xCompass + rCompass + x1 - 4, xCompass + rCompass - y1 + 5);
-            int x2 = (int) ((rCompass - 10) * Math.sin(rad*90));  
+            int x2 = (int) ((rCompass - 10) * Math.sin(rad*90));   //TODO: why *90?
             int y2 = (int) ((rCompass - 10) * Math.cos(rad*90));
             g.drawString("E", xCompass + rCompass + x2 - 4, xCompass + rCompass - y2 + 5);
             int x3 = (int) ((rCompass - 10) * Math.sin(rad*180));  

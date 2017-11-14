@@ -25,7 +25,8 @@ public class ControlPanel extends JFrame{
 		btnManual.setBounds(450, 10, 100, 30);
 		JButton btnCharge=new JButton("Charge");
 		btnCharge.setBounds(670, 10, 100, 30);
-		
+
+		//TODO: Java convention use lowercase letters for variables btnAuto (good), Welcome -> welcome
 		btnAuto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				Welcome.setVisible(false);

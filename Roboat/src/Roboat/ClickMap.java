@@ -29,6 +29,7 @@ public class ClickMap extends JFrame {
 		//setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
+	//TODO: Use Java conventions for class names: MapPanel
 	class mappanel extends JPanel {
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);            
