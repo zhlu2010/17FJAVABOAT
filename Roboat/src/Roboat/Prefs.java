@@ -1,3 +1,8 @@
+package Roboat;
+
+import java.awt.Color;
+import java.awt.Font;
+
 public class Prefs {
 	public static Font bigFont;
 	public static Font labelFont;

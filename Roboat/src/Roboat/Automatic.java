@@ -5,15 +5,20 @@ import java.util.Timer;
 import java.util.TimerTask;
 //TODO: Add comments to every file show the author
 import javax.swing.*;
+
+
 /**
  * @author _____
- * Explain what this class does in one setence
+ * Explain what this class does in one sentence
+ * 
+ * clickmap's constructor is built in this class
  */
 public class Automatic extends JPanel {
 	//	private DrawDashBoard dashboard;
-	public static JTextArea Longitude; //TODO: make variables private and non-static so we can support more than one boat
-	public static JTextArea Latitude;
-	public static boolean openmap = false;
+	private JTextArea Longitude;
+	private JTextArea Latitude;
+	private boolean openmap = false;
+	private static ClickMap clickmap;
 
 	private void setCompassAngle() {
 		//		dashboard.setCompassAngle(Math.atan2(ClickMap.DestinationY-ClickMap.CurrentY, ClickMap.DestinationX-ClickMap.CurrentX));
@@ -26,6 +31,8 @@ public class Automatic extends JPanel {
 	public Automatic() { //TODO: Too much in one function.  Break up.
 		setBounds(0, 0, 800, 400);
 		setLayout(null);
+		clickmap = new ClickMap();
+		
 		JLabel lblAuto = new JLabel("Auto Control"); //TODO: better layout??
 		lblAuto.setBounds(100, 0, 200, 100);
 		lblAuto.setForeground(Color.red);
@@ -56,10 +63,10 @@ public class Automatic extends JPanel {
 				new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
 						if (openmap == false) {
-							Main.map.setVisible(true);
+							clickmap.setVisible(true);
 							openmap = true;
 						} else {
-							Main.map.setVisible(false);
+							clickmap.setVisible(false);
 							openmap = false;
 						}
 					}
@@ -92,10 +99,8 @@ public class Automatic extends JPanel {
 
 
 								//TODO: setCompassAngle();
-   							DrawDashBoard.compassAngle = - Math.toDegrees(Math.atan((double)(ClickMap.DestinationX-ClickMap.CurrentX)/(double)(ClickMap.DestinationY-ClickMap.CurrentY)));
-   							if (ClickMap.DestinationY-ClickMap.CurrentY > 0) {
-   								 DrawDashBoard.compassAngle = DrawDashBoard.compassAngle +180;
-   							}
+   								//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
+   							DrawDashBoard.compassAngle = clickmap.getDirection();
    							Rotation redcompassAngle = new Rotation(200,200,DrawDashBoard.xredCompass,DrawDashBoard.yredCompass,DrawDashBoard.compassAngle);
    							DrawDashBoard.xredCompass=redcompassAngle.Xcoordinate();
 							DrawDashBoard.yredCompass=redcompassAngle.Ycoordinate();
@@ -103,9 +108,7 @@ public class Automatic extends JPanel {
    							DrawDashBoard.xwhiteCompass=whitecompassAngle.Xcoordinate();
 							DrawDashBoard.ywhiteCompass=whitecompassAngle.Ycoordinate();
 							
-							ClickMap.Xdistance = Math.abs(ClickMap.DestinationX-ClickMap.CurrentX);
 							
-							//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
 							double directiontheta = (DrawDashBoard.compassAngle)*(Math.PI/180);					
    							Timer timer = new Timer();
    				        timer.schedule(new TimerTask() {
@@ -116,18 +119,16 @@ public class Automatic extends JPanel {
    				            	Rotation RoilAngle = new Rotation(200,550,DrawDashBoard.xGas,DrawDashBoard.yGas,DrawDashBoard.oilAngle);
    								DrawDashBoard.xGasRot=RoilAngle.Xcoordinate();
    								DrawDashBoard.yGasRot=RoilAngle.Ycoordinate();   								
-   								ClickMap.CurrentX += (int)ClickMap.boatspeed*Math.sin(directiontheta);   								
-   								ClickMap.CurrentY -= (int)ClickMap.boatspeed*Math.cos(directiontheta);
-   								ClickMap.Xdistance -= Math.abs((int)40*Math.sin(directiontheta));
-   								Longitude.setText(""+ClickMap.CurrentX);
-   								Latitude.setText(""+ClickMap.CurrentY);
+   								
+   								clickmap.changeLocation(directiontheta);
+   								Longitude.setText(""+clickmap.getLongitude());
+   								Latitude.setText(""+clickmap.getLatitude());
    				            	Manual.rc1.repaint();
-   				            	Main.map.repaint();
-   				           if(ClickMap.Xdistance<=0) {
-   				        	   ClickMap.CurrentX = ClickMap.DestinationX;
-   				        	   ClickMap.CurrentY = ClickMap.DestinationY;
-   				        	   Main.map.repaint();
-   				        	   timer.cancel();
+   				            	clickmap.repaint();
+   				           if(clickmap.getdistance()<=0) {
+   				        	   clickmap.arrived();
+   				        	   clickmap.repaint();
+   				        	   timer.cancel();   				        	  
    				           }
    				          if (DrawDashBoard.BatteryPower2>25&&DrawDashBoard.BatteryPower2<=60) {
    				        	DrawDashBoard.BatteryColorR = 255;
@@ -151,5 +152,8 @@ public class Automatic extends JPanel {
    						}
    		        }
    		);
+	}
+	public static void mapRepaint() {
+		clickmap.repaint();
 	}
 }

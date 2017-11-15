@@ -1,20 +1,21 @@
-package TestRoboat;
+package Roboat;
 import javax.imageio.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-
-import TestRoboat.Map.MyMouseListener;
-
 import java.io.*;
-
+/**
+ * 
+ * @author 
+ *set point on map, calculate the distance and change the current location
+ */
 public class ClickMap extends JFrame {
-	public static int CurrentX=400;
-	public static int CurrentY=250;
-	public static int DestinationX = CurrentX;
-	public static int DestinationY = CurrentY;
-	public static int Xdistance;
-	public static double boatspeed = 40;
+	private int CurrentX=400;
+	private int CurrentY=250;
+	private int DestinationX = CurrentX;
+	private int DestinationY = CurrentY;
+	private int Xdistance;
+	private double boatspeed = 40;
 	
 	public ClickMap() {
 		super("map");
@@ -23,14 +24,14 @@ public class ClickMap extends JFrame {
 		setLocation(550,450);
 		MyMouseListener ml=new MyMouseListener();
 		c.addMouseListener(ml);
-		mappanel mappanel = new mappanel();
+		MapPanel mappanel = new MapPanel();
 		c.add(mappanel);
 		
-		//setVisible(true);
+		
+		
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-	//TODO: Use Java conventions for class names: MapPanel
-	class mappanel extends JPanel {
+	class MapPanel extends JPanel {
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);            
             g.setColor(Color.RED);
@@ -54,14 +55,47 @@ public class ClickMap extends JFrame {
 		}
 		public void mousePressed(MouseEvent e) {
 			DestinationX = e.getX();
-			DestinationY = e.getY();			
-			Main.map.repaint();
+			DestinationY = e.getY();
+			Xdistance = Math.abs(DestinationX-CurrentX);
+			Automatic.mapRepaint();
 		}
 		public void mouseReleased(MouseEvent e) {
 			// TODO Auto-generated method stub
 		}
 	}
+	public double getLongitude() {
+		return CurrentX;
+	}
+	public double getLatitude() {
+		return CurrentY;
+	}
+	public double getDirection() {
+		double directionAng;
+		directionAng = - Math.toDegrees(Math.atan((double)(DestinationX-CurrentX)/(double)(DestinationY-CurrentY)));
+		if(DestinationY-CurrentY > 0) {
+				 directionAng = directionAng +180;
+			}
+		return directionAng;
+	}
+	public void changeLocation(double directiontheta) {
+		CurrentX += (int)boatspeed*Math.sin(directiontheta);   								
+		CurrentY -= (int)boatspeed*Math.cos(directiontheta);
+		Xdistance -= Math.abs((int)boatspeed*Math.sin(directiontheta));
+		repaint();
+	}
+	public double getdistance() {
+		return Xdistance;
+	}
+	public void arrived() {
+		CurrentX = DestinationX;
+    	CurrentY = DestinationY;
+    	repaint();
+	}
+	
+	
 	/*public static void main(String[] args) {
-		new ClickMap();
+		ClickMap cm = new ClickMap();
+	
+		
 	}*/
 }

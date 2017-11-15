@@ -43,10 +43,10 @@ public class ControlPanel extends JFrame{
 		});
 		btnCharge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				DrawDashBoard.xredCompass = DrawDashBoard.xredCompassOrigin;
+				/*DrawDashBoard.xredCompass = DrawDashBoard.xredCompassOrigin;
 				DrawDashBoard.yredCompass = DrawDashBoard.yredCompassOrigin;
 				DrawDashBoard.xwhiteCompass = DrawDashBoard.xwhiteCompassOrigin;
-				DrawDashBoard.ywhiteCompass = DrawDashBoard.ywhiteCompassOrigin;
+				DrawDashBoard.ywhiteCompass = DrawDashBoard.ywhiteCompassOrigin;*/
 				DrawDashBoard.xGasRot = DrawDashBoard.xGas;
 				DrawDashBoard.yGasRot = DrawDashBoard.yGas;
 				DrawDashBoard.BatteryColorR=0;
@@ -58,7 +58,7 @@ public class ControlPanel extends JFrame{
 				DrawDashBoard.BatteryPower1 = 306;
 				DrawDashBoard.BatteryPower2 = 100;
 				Manual.rc1.repaint();
-	            Main.map.repaint();
+	            Automatic.mapRepaint();
 			}
 		});
 		c.add(btnAuto);c.add(btnManual);c.add(btnCharge);
