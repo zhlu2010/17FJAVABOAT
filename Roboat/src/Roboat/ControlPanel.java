@@ -3,7 +3,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 
-public class ControlPanel extends JFrame{    
+public class ControlPanel extends JFrame{
 	public ControlPanel() {
     	super("Control Panel");
     	setLayout(null);
@@ -52,7 +52,7 @@ public class ControlPanel extends JFrame{
 				DrawDashBoard.BatteryColorR=0;
 				DrawDashBoard.BatteryColorG=255;
 				DrawDashBoard.oilAngle = 0;
-				DrawDashBoard.compassAngle = 0;
+				DrawCompass.compassAngle = 0;
 				DrawDashBoard.Propellor1speed.setText("0");
 				DrawDashBoard.Propellor2speed.setText("0");
 				DrawDashBoard.BatteryPower1 = 306;
@@ -61,6 +61,7 @@ public class ControlPanel extends JFrame{
 	            Automatic.mapRepaint();
 			}
 		});
+		
 		c.add(btnAuto);c.add(btnManual);c.add(btnCharge);
 		c.add(Welcome);c.add(Auto);c.add(Manual);
 		Welcome.setVisible(true);

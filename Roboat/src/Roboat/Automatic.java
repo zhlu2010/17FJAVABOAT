@@ -17,7 +17,7 @@ public class Automatic extends JPanel {
 	//	private DrawDashBoard dashboard;
 	private JTextArea Longitude;
 	private JTextArea Latitude;
-	private boolean openmap = false;
+	private boolean openmap = true;
 	private static ClickMap clickmap;
 
 	private void setCompassAngle() {
@@ -84,38 +84,34 @@ public class Automatic extends JPanel {
 									dashboard.setPropeller2Speed(100);
 									setCompass();
 
-
-
-
-
 								 */								
    							DrawDashBoard.Propellor1speed.setText("100.0"); // TODO: dashboard.setPropeller1Speed(100.0);
    							DrawDashBoard.Propellor2speed.setText("100.0"); // TODO: dashboard.setPropeller2Speed(100.0);
 								// TODO: this code should be hidden in the dashboard.  This si a detail of drawing a compass.
-   							DrawDashBoard.xredCompass = DrawDashBoard.xredCompassOrigin;
-   							DrawDashBoard.yredCompass = DrawDashBoard.yredCompassOrigin;
-   							DrawDashBoard.xwhiteCompass = DrawDashBoard.xwhiteCompassOrigin;
-   							DrawDashBoard.ywhiteCompass = DrawDashBoard.ywhiteCompassOrigin;
+   							DrawCompass.xredCompass = DrawCompass.xredCompassOrigin;
+   							DrawCompass.yredCompass = DrawCompass.yredCompassOrigin;
+   							DrawCompass.xwhiteCompass = DrawCompass.xwhiteCompassOrigin;
+   							DrawCompass.ywhiteCompass = DrawCompass.ywhiteCompassOrigin;
 
 
 								//TODO: setCompassAngle();
    								//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
-   							DrawDashBoard.compassAngle = clickmap.getDirection();
-   							Rotation redcompassAngle = new Rotation(200,200,DrawDashBoard.xredCompass,DrawDashBoard.yredCompass,DrawDashBoard.compassAngle);
-   							DrawDashBoard.xredCompass=redcompassAngle.Xcoordinate();
-							DrawDashBoard.yredCompass=redcompassAngle.Ycoordinate();
-							Rotation whitecompassAngle = new Rotation(200,200,DrawDashBoard.xwhiteCompass,DrawDashBoard.ywhiteCompass,DrawDashBoard.compassAngle);
-   							DrawDashBoard.xwhiteCompass=whitecompassAngle.Xcoordinate();
-							DrawDashBoard.ywhiteCompass=whitecompassAngle.Ycoordinate();
+   							DrawCompass.compassAngle = clickmap.getDirection();
+   							Rotation redcompassAngle = new Rotation(200,200,DrawCompass.xredCompass,DrawCompass.yredCompass,DrawCompass.compassAngle);
+   							DrawCompass.xredCompass=redcompassAngle.Xcoordinate();
+   							DrawCompass.yredCompass=redcompassAngle.Ycoordinate();
+							Rotation whitecompassAngle = new Rotation(200,200,DrawCompass.xwhiteCompass,DrawCompass.ywhiteCompass,DrawCompass.compassAngle);
+							DrawCompass.xwhiteCompass=whitecompassAngle.Xcoordinate();
+							DrawCompass.ywhiteCompass=whitecompassAngle.Ycoordinate();
 							
 							
-							double directiontheta = (DrawDashBoard.compassAngle)*(Math.PI/180);					
+							double directiontheta = (DrawCompass.compassAngle)*(Math.PI/180);					
    							Timer timer = new Timer();
    				        timer.schedule(new TimerTask() {
    				            public void run() {
-   				                DrawDashBoard.BatteryPower1 +=10;
-   				            	DrawDashBoard.BatteryPower2 -=10;
-   				            	DrawDashBoard.oilAngle -= 12; 
+   				                DrawDashBoard.BatteryPower1 +=1;
+   				            	DrawDashBoard.BatteryPower2 -=1;
+   				            	DrawDashBoard.oilAngle -= 5; 
    				            	Rotation RoilAngle = new Rotation(200,550,DrawDashBoard.xGas,DrawDashBoard.yGas,DrawDashBoard.oilAngle);
    								DrawDashBoard.xGasRot=RoilAngle.Xcoordinate();
    								DrawDashBoard.yGasRot=RoilAngle.Ycoordinate();   								
@@ -146,9 +142,7 @@ public class Automatic extends JPanel {
    				                	timer.cancel();
    				                }
    				            }
-   				        },0,1000);
-   						
-   							
+   				        },0,1000);	
    						}
    		        }
    		);

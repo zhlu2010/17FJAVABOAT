@@ -4,6 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import static java.lang.Math.*;
+
 /**
  * 
  * @author 
@@ -26,9 +28,7 @@ public class ClickMap extends JFrame {
 		c.addMouseListener(ml);
 		MapPanel mappanel = new MapPanel();
 		c.add(mappanel);
-		
-		
-		
+		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	class MapPanel extends JPanel {
@@ -50,18 +50,14 @@ public class ClickMap extends JFrame {
 		public void mouseExited(MouseEvent arg0) {
 			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		}
-		public void mouseClicked(MouseEvent e) {			
-			
-		}
+		public void mouseClicked(MouseEvent e) {}
 		public void mousePressed(MouseEvent e) {
 			DestinationX = e.getX();
 			DestinationY = e.getY();
-			Xdistance = Math.abs(DestinationX-CurrentX);
+			Xdistance = abs(DestinationX-CurrentX);
 			Automatic.mapRepaint();
 		}
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
+		public void mouseReleased(MouseEvent e) {}
 	}
 	public double getLongitude() {
 		return CurrentX;
@@ -71,16 +67,16 @@ public class ClickMap extends JFrame {
 	}
 	public double getDirection() {
 		double directionAng;
-		directionAng = - Math.toDegrees(Math.atan((double)(DestinationX-CurrentX)/(double)(DestinationY-CurrentY)));
+		directionAng = - toDegrees(atan((double)(DestinationX-CurrentX)/(double)(DestinationY-CurrentY)));
 		if(DestinationY-CurrentY > 0) {
 				 directionAng = directionAng +180;
 			}
 		return directionAng;
 	}
 	public void changeLocation(double directiontheta) {
-		CurrentX += (int)boatspeed*Math.sin(directiontheta);   								
-		CurrentY -= (int)boatspeed*Math.cos(directiontheta);
-		Xdistance -= Math.abs((int)boatspeed*Math.sin(directiontheta));
+		CurrentX += (int)boatspeed*sin(directiontheta);   								
+		CurrentY -= (int)boatspeed*cos(directiontheta);
+		Xdistance -= abs((int)boatspeed*sin(directiontheta));
 		repaint();
 	}
 	public double getdistance() {
@@ -91,7 +87,6 @@ public class ClickMap extends JFrame {
     	CurrentY = DestinationY;
     	repaint();
 	}
-	
 	
 	/*public static void main(String[] args) {
 		ClickMap cm = new ClickMap();
