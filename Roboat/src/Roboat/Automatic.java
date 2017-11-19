@@ -11,7 +11,7 @@ import javax.swing.*;
  * @author _____
  * Explain what this class does in one sentence
  * 
- * clickmap's constructor is built in this class
+ * clickmap's constructor is built in this class, as well as drawdashboard's, there are some functions to reset or repaint these two panel
  */
 public class Automatic extends JPanel {
 	//	private DrawDashBoard dashboard;
@@ -19,6 +19,7 @@ public class Automatic extends JPanel {
 	private JTextArea Latitude;
 	private boolean openmap = true;
 	private static ClickMap clickmap;
+	private static DrawDashBoard drawdashboard;
 
 	private void setCompassAngle() {
 		//		dashboard.setCompassAngle(Math.atan2(ClickMap.DestinationY-ClickMap.CurrentY, ClickMap.DestinationX-ClickMap.CurrentX));
@@ -32,6 +33,7 @@ public class Automatic extends JPanel {
 		setBounds(0, 0, 800, 400);
 		setLayout(null);
 		clickmap = new ClickMap();
+		drawdashboard = new DrawDashBoard();
 		
 		JLabel lblAuto = new JLabel("Auto Control"); //TODO: better layout??
 		lblAuto.setBounds(100, 0, 200, 100);
@@ -85,69 +87,53 @@ public class Automatic extends JPanel {
 									setCompass();
 
 								 */								
-   							DrawDashBoard.Propellor1speed.setText("100.0"); // TODO: dashboard.setPropeller1Speed(100.0);
-   							DrawDashBoard.Propellor2speed.setText("100.0"); // TODO: dashboard.setPropeller2Speed(100.0);
+   							DrawDashBoard.setPropellor1Speed(100.0);
+   							DrawDashBoard.setPropellor2Speed(100.0);
 								// TODO: this code should be hidden in the dashboard.  This si a detail of drawing a compass.
-   							DrawCompass.xredCompass = DrawCompass.xredCompassOrigin;
-   							DrawCompass.yredCompass = DrawCompass.yredCompassOrigin;
-   							DrawCompass.xwhiteCompass = DrawCompass.xwhiteCompassOrigin;
-   							DrawCompass.ywhiteCompass = DrawCompass.ywhiteCompassOrigin;
+   							drawdashboard.resetCompass();
 
 
 								//TODO: setCompassAngle();
    								//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
-   							DrawCompass.compassAngle = clickmap.getDirection();
-   							Rotation redcompassAngle = new Rotation(200,200,DrawCompass.xredCompass,DrawCompass.yredCompass,DrawCompass.compassAngle);
-   							DrawCompass.xredCompass=redcompassAngle.Xcoordinate();
-   							DrawCompass.yredCompass=redcompassAngle.Ycoordinate();
-							Rotation whitecompassAngle = new Rotation(200,200,DrawCompass.xwhiteCompass,DrawCompass.ywhiteCompass,DrawCompass.compassAngle);
-							DrawCompass.xwhiteCompass=whitecompassAngle.Xcoordinate();
-							DrawCompass.ywhiteCompass=whitecompassAngle.Ycoordinate();
-							
-							
-							double directiontheta = (DrawCompass.compassAngle)*(Math.PI/180);					
+   							drawdashboard.setCompassAngle(clickmap.getDirection());
+							double directiontheta = (clickmap.getDirection())*(Math.PI/180);					
    							Timer timer = new Timer();
    				        timer.schedule(new TimerTask() {
-   				            public void run() {
-   				                DrawDashBoard.BatteryPower1 +=1;
-   				            	DrawDashBoard.BatteryPower2 -=1;
-   				            	DrawDashBoard.oilAngle -= 5; 
-   				            	Rotation RoilAngle = new Rotation(200,550,DrawDashBoard.xGas,DrawDashBoard.yGas,DrawDashBoard.oilAngle);
-   								DrawDashBoard.xGasRot=RoilAngle.Xcoordinate();
-   								DrawDashBoard.yGasRot=RoilAngle.Ycoordinate();   								
-   								
+   				            public void run() {   				             
+   				                drawdashboard.batteryReduce();
+   				            	drawdashboard.oilReduce();
    								clickmap.changeLocation(directiontheta);
-   								Longitude.setText(""+clickmap.getLongitude());
-   								Latitude.setText(""+clickmap.getLatitude());
-   				            	Manual.rc1.repaint();
+   								setLocation(clickmap.getLongitude(),clickmap.getLatitude());
+   				            	drawdashboard.repaint();
    				            	clickmap.repaint();
-   				           if(clickmap.getdistance()<=0) {
-   				        	   clickmap.arrived();
-   				        	   clickmap.repaint();
-   				        	   timer.cancel();   				        	  
-   				           }
-   				          if (DrawDashBoard.BatteryPower2>25&&DrawDashBoard.BatteryPower2<=60) {
-   				        	DrawDashBoard.BatteryColorR = 255;
-				             }
-   				          else if (DrawDashBoard.BatteryPower2>0&&DrawDashBoard.BatteryPower2<=25) {
-   				        	DrawDashBoard.BatteryColorR = 255;
-   				        	DrawDashBoard.BatteryColorG = 0;
-				            	 
-				             }
-				          else if(DrawDashBoard.BatteryPower2<=0) {
-				        	  DrawDashBoard.BatteryPower2=0;
-				        	  //ClickMap.CurrentX = ClickMap.DestinationX;
-				        	  //ClickMap.CurrentY = ClickMap.DestinationY;				        	  
-				        	  Manual.rc1.repaint();  
-   				                	timer.cancel();
-   				                }
+   				            	if(clickmap.getdistance()<=0) {
+      				        	   clickmap.arrived();
+      				        	   timer.cancel();   				        	  
+      				           }
+      				         if(drawdashboard.batteryReduce()&&drawdashboard.oilReduce()== false) {
+   				        	    timer.cancel();
+      				           }
+   				          
    				            }
    				        },0,1000);	
    						}
    		        }
    		);
 	}
+	public void setLocation(double x, double y) {
+		Longitude.setText(""+x);
+		Latitude.setText(""+y);
+	}
 	public static void mapRepaint() {
 		clickmap.repaint();
+	}
+	public static void DrawDashBoardRepaint() {
+		drawdashboard.repaint();
+	}
+	public static void setRudder(double rdang) {
+		drawdashboard.setRudderAngle(rdang);
+	}
+	public static void DrawDashBoardReset() {
+		drawdashboard.reset();
 	}
 }

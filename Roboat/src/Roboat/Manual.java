@@ -6,13 +6,12 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 public class Manual extends JPanel {
-	public static JTextArea mtaSpeed;
-	public static JTextArea mtaRudder;
-	public static JTextArea mtaPropellor1;
-	public static JTextArea mtaPropellor2;
-	public static JSlider sliderRudder;
-	//public static JSlider slideroil;	
-	public static DrawDashBoard rc1;
+	private JTextArea mtaSpeed;
+	//private JTextArea mtaRudder;
+	private JTextArea mtaPropellor1;
+	private JTextArea mtaPropellor2;
+	private JSlider sliderRudder;
+	
 	
 	public Manual() {
 		setLayout(null);
@@ -45,47 +44,16 @@ public class Manual extends JPanel {
 		JLabel lblforSlider = new JLabel(90+"бу");
 		lblforSlider.setBounds(320,150,50,30);
 	    add(lblforSlider);
-	    rc1 = new DrawDashBoard();
-	    
-	    /*slideroil = new JSlider(JSlider.HORIZONTAL);
-	    slideroil.setBounds(350,150,180,30);
-	    slideroil.setMinimum(30);
-	    slideroil.setMaximum(150);
-		slideroil.setValue(90);
-		add(slideroil);*/
+
 		
 	    sliderRudder.addChangeListener(new ChangeListener()  {
 	    	public void stateChanged(ChangeEvent e) {
      			double rdang = 0;						
      			rdang = (new Double(sliderRudder.getValue())).doubleValue();
-				rdang = (rdang-90)*(Math.PI/180);
-				DrawDashBoard.xRudder2=200;
-				DrawDashBoard.yRudder2=740;
-				double mycos = Math.cos(rdang);
-	            double mysin = Math.sin(rdang);
-	            DrawDashBoard.XX = DrawDashBoard.xRudder2 - DrawDashBoard.xRudder1;
-	            DrawDashBoard.YY = DrawDashBoard.yRudder2 - DrawDashBoard.yRudder1;
-	            DrawDashBoard.xRudder2=(double)(-(DrawDashBoard.XX*mycos-DrawDashBoard.YY*mysin));
-	            DrawDashBoard.yRudder2=(double)(DrawDashBoard.XX*mysin+DrawDashBoard.YY*mycos);
-	            DrawDashBoard.xRudder2+=DrawDashBoard.xRudder1;
-	            DrawDashBoard.yRudder2+=DrawDashBoard.yRudder1;
-	            rc1.repaint();
-	            DrawDashBoard.lblRudder.setText("Rudder: "+sliderRudder.getValue()+"бу");
+				Automatic.setRudder(rdang);
 	            lblforSlider.setText(""+sliderRudder.getValue()+"бу");		
 	    	}
 	    });
-	    /*slideroil.addChangeListener(new ChangeListener()  {
-	    	public void stateChanged(ChangeEvent e) {
-     			double oilang = 0;						
-     			oilang = (new Double(slideroil.getValue())).doubleValue();
-				Rotation r1 = new Rotation(200,550,DrawDashBoard.xGas,DrawDashBoard.yGas,oilang);
-				DrawDashBoard.xGasRot=r1.Xcoordinate();
-				DrawDashBoard.yGasRot=r1.Ycoordinate();				
-	            rc1.repaint();
-	            
-	           		
-	    	}
-	    });*/
 	    
 		JLabel mlblPropellor1 = new JLabel("Propellor 1");
 		mlblPropellor1.setBounds(50, 200, 80, 30);
@@ -121,14 +89,14 @@ public class Manual extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			double numPropellor1 = 0;						
 			numPropellor1 = (new Double(mtaPropellor1.getText())).doubleValue(); 
-			DrawDashBoard.Propellor1speed.setText(""+numPropellor1);
+			DrawDashBoard.setPropellor1Speed(numPropellor1);
 		}
 	}
     class mbtnPropellor2 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			double numPropellor2 = 0;						
 			numPropellor2 = (new Double(mtaPropellor2.getText())).doubleValue(); 
-			DrawDashBoard.Propellor2speed.setText(""+numPropellor2);
+			DrawDashBoard.setPropellor2Speed(numPropellor2);
 		}
 	}
 }

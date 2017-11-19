@@ -4,37 +4,41 @@ import java.awt.*;
 import javax.swing.*;
 import static java.lang.Math.*;
 
+/*
+ * everything on the boat is controlled here, except compass
+ */
 class DrawDashBoard extends JFrame {
 	//TODO: These constants that are always the same can be final, static and convention is X_ROBOAT
     private final static int[] xRoboat = {200,100,100,300,300,200};
     private final static int[] yRoboat = {30, 300,700,700,300,30 };
     private int[] xBattery = {195,195,185,185,215,215,205,205,195};
     private int[] yBattery = {300,305,305,406,406,305,305,300,300};
-    public static int[] xGas = {200,243,236,243,241};
-    public static int[] yGas = {550,525,524,525,532};
-    public static int[] xGasRot = xGas;
-    public static int[] yGasRot = yGas;
-    public static int[] xPropellor1={130,130,125,130,125,130,135,130,135,130,130};
-   	public static int[] yPropellor1={700,750,745,750,755,750,755,750,745,750,700};
-   	public static int[] xPropellor2={270,270,265,270,265,270,275,270,275,270,270};
-   	public static int[] yPropellor2={700,750,745,750,755,750,755,750,745,750,700};
+    private int[] xGas = {200,243,236,243,241};
+    private int[] yGas = {550,525,524,525,532};
+    private int[] xGasRot = xGas;
+    private int[] yGasRot = yGas;
+    private final static int[] xPropellor1={130,130,125,130,125,130,135,130,135,130,130};
+    private final static int[] yPropellor1={700,750,745,750,755,750,755,750,745,750,700};
+    private final static int[] xPropellor2={270,270,265,270,265,270,275,270,275,270,270};
+    private final static int[] yPropellor2={700,750,745,750,755,750,755,750,745,750,700};
     
-    public static double xRudder1=200;
-	public static double yRudder1=700;
-	public static double xRudder2=200;
-	public static double yRudder2=740;
-	public static double XX;
-	public static double YY;
-	public static JLabel Propellor1speed;
-	public static JLabel Propellor2speed;
-	public static int BatteryPower1 = 306;
-	public static int BatteryPower2 = 100;
-	public static int BatteryColorR=0;
-	public static int BatteryColorG=255;
-	public static double oilAngle = 0;
-	//public static double compassAngle = 0;
+    private double xRudder1=200;
+    private double yRudder1=700;
+    private double xRudder2=200;
+    private double yRudder2=740;
+    private double XX;
+    private double YY;
+	private static JLabel Propellor1speed;
+	private static JLabel Propellor2speed;
+	private int BatteryPower1 = 306;
+	private int BatteryPower2 = 100;
+	private int BatteryColorR=0;
+	private int BatteryColorG=255;
+	private double oilAngle = 0;
+		
+	private JLabel lblRudder;	
+	private static DrawCompass compass;
 	
-	public static JLabel lblRudder;
     public DrawDashBoard() {
     	super("Dash Board");
     	setLayout(null);
@@ -44,12 +48,12 @@ class DrawDashBoard extends JFrame {
     	lblRudder.setBounds(160,660,150,30);
     	dashPanel dashPanel=new dashPanel();
     	dashPanel.setBounds(-10,-20,400,800);
-    	DrawCompass compass=new DrawCompass();
+    	compass=new DrawCompass();
         compass.setBounds(-10,-20,400,400);
         c.add(compass);
         c.add(lblRudder); c.add(dashPanel);
         
-        //dashPanel.setLayout(null);
+        dashPanel.setLayout(null);
         Propellor1speed = new  JLabel("0.0");
         Propellor1speed.setBounds(110,685,50,21);
         dashPanel.add(Propellor1speed);
@@ -61,7 +65,7 @@ class DrawDashBoard extends JFrame {
                       
         setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+		//setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
 	//TODO: convention is DashPanel
@@ -80,6 +84,74 @@ class DrawDashBoard extends JFrame {
             g.drawPolyline(xPropellor2, yPropellor2, xPropellor2.length);
             g.drawLine((int)xRudder1, (int)yRudder1, (int)xRudder2, (int)yRudder2);
         } 
+    }
+    public void setCompassAngle(double newAngle) {
+    	compass.setcompassAngel(newAngle);
+    }
+    public void resetCompass() {
+    	compass.resetCompass();
+    }
+    public void setRudderAngle(double newRA) {
+    	double rdang = 0;
+    	rdang = (newRA-90)*(Math.PI/180);
+    	xRudder2=200;
+		yRudder2=740;
+		double mycos = Math.cos(rdang);
+        double mysin = Math.sin(rdang);
+        XX = xRudder2 - xRudder1;
+        YY = yRudder2 - yRudder1;
+        xRudder2=(double)(-(XX*mycos-YY*mysin));
+        yRudder2=(double)(XX*mysin+YY*mycos);
+        xRudder2+=xRudder1;
+        yRudder2+=yRudder1;
+        lblRudder.setText("Rudder: "+newRA+"бу");
+        repaint();
+    }
+    public static void setPropellor1Speed(double p1sp) {
+    	Propellor1speed.setText(""+p1sp);
+    }
+    public static void setPropellor2Speed(double p2sp) {
+    	Propellor2speed.setText(""+p2sp);
+    }
+    public boolean batteryReduce() {
+    	BatteryPower1 +=1;
+    	BatteryPower2 -=1;
+    	repaint();
+    	if (BatteryPower2>25&&BatteryPower2<=60) {
+	        	BatteryColorR = 255;
+	        	return true;
+             }
+	          else if (BatteryPower2>0&&BatteryPower2<=25) {
+	        	BatteryColorR = 255;
+	        	BatteryColorG = 0;
+	        	return true;
+            	 
+             }
+          else if(BatteryPower2<=0) {
+        	 BatteryPower2=0;
+        	 return false;
+          } else return true;
+    }
+    public boolean oilReduce() {
+    	oilAngle -= 6; 
+       	Rotation RoilAngle = new Rotation(200,550,xGas,yGas,oilAngle);
+		xGasRot=RoilAngle.Xcoordinate();
+		yGasRot=RoilAngle.Ycoordinate();
+		repaint();
+		if(oilAngle<=-120) {
+			return false;
+		}else return true;
+			
+    }
+    public void reset() {
+    	BatteryColorR=0;
+		BatteryColorG=255;
+		BatteryPower1 = 306;
+		BatteryPower2 = 100;
+		xGasRot = xGas;
+		yGasRot = yGas;				
+		oilAngle = 0;
+		repaint();
     }
  /* public static void main(String[] args) {
 		new DrawDashBoard();

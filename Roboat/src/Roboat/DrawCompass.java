@@ -7,15 +7,16 @@ import static java.lang.Math.*;
 public class DrawCompass extends JPanel{
     public double rad = Math.PI / 180;
 	private int xCompass=150, yCompass=150, rCompass=50;
-	public static int[] xredCompass={200,195,205};
-    public static int[] yredCompass={170,200,200};
-	public static int[] xwhiteCompass={200,195,205};
-	public static int[] ywhiteCompass={230,200,200};
-	public static int[] xredCompassOrigin={200,195,205};
-    public static int[] yredCompassOrigin={170,200,200};
-	public static int[] xwhiteCompassOrigin={200,195,205};
-	public static int[] ywhiteCompassOrigin={230,200,200};
-	public static double compassAngle = 0;
+	private int[] xredCompass={200,195,205};
+	private int[] yredCompass={170,200,200};
+	private int[] xwhiteCompass={200,195,205};
+	private int[] ywhiteCompass={230,200,200};
+	private int[] xredCompassOrigin={200,195,205};
+    private int[] yredCompassOrigin={170,200,200};
+    private int[] xwhiteCompassOrigin={200,195,205};
+    private int[] ywhiteCompassOrigin={230,200,200};
+    private double compassAngle = 0;
+    
 	public void paintComponent(Graphics g) {
         g.drawOval(xCompass, yCompass, rCompass*2, rCompass*2);
         g.setColor(Color.red);
@@ -46,4 +47,20 @@ public class DrawCompass extends JPanel{
         g.drawPolygon(xwhiteCompass, ywhiteCompass, xwhiteCompass.length);
         g.fillPolygon(xwhiteCompass, ywhiteCompass, xwhiteCompass.length); 
     }
+	public void setcompassAngel(double newAngle) {
+		Rotation redcompassAngle = new Rotation(200,200,xredCompass,yredCompass,newAngle);
+		xredCompass=redcompassAngle.Xcoordinate();
+		yredCompass=redcompassAngle.Ycoordinate();
+		Rotation whitecompassAngle = new Rotation(200,200,xwhiteCompass,ywhiteCompass,newAngle);
+		xwhiteCompass=whitecompassAngle.Xcoordinate();
+		ywhiteCompass=whitecompassAngle.Ycoordinate();
+		repaint();
+	}
+	public void resetCompass() {
+		xredCompass = xredCompassOrigin;
+		yredCompass = yredCompassOrigin;
+		xwhiteCompass = xwhiteCompassOrigin;
+		ywhiteCompass = ywhiteCompassOrigin;
+		repaint();
+	}
 }
