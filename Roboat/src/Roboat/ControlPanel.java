@@ -60,6 +60,3 @@ public class ControlPanel extends JFrame{
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }
-
-
-

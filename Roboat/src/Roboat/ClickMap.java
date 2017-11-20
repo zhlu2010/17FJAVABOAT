@@ -3,17 +3,17 @@ import javax.imageio.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import java.io.*;
-import static java.lang.Math.*;
 
+
+import java.io.*;
 /**
  * 
- * @author 
+ * @author 95291
  *set point on map, calculate the distance and change the current location
  */
 public class ClickMap extends JFrame {
-	private int CurrentX=400;
-	private int CurrentY=250;
+	private int CurrentX=600;
+	private int CurrentY=500;
 	private int DestinationX = CurrentX;
 	private int DestinationY = CurrentY;
 	private int Xdistance;
@@ -22,18 +22,34 @@ public class ClickMap extends JFrame {
 	public ClickMap() {
 		super("map");
 		Container c = getContentPane();
-		setSize(800,500);
-		setLocation(550,450);
+		setSize(1200,1000);
+		setLocation(850,150);
 		MyMouseListener ml=new MyMouseListener();
 		c.addMouseListener(ml);
 		MapPanel mappanel = new MapPanel();
 		c.add(mappanel);
+		
+		
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	class MapPanel extends JPanel {
+		Image image=null;
     	public void paintComponent(Graphics g) {
-            super.paintComponent(g);            
+            super.paintComponent(g);           
+            try {
+
+                image=ImageIO.read(new File("map1.png"));
+
+                g.drawImage(image, 0, 0, 1200, 1000, null);
+
+            } catch (Exception e) {
+
+                // TODO Auto-generated catch block
+
+                e.printStackTrace();
+
+            }
             g.setColor(Color.RED);
             g.drawLine(DestinationX-10,DestinationY,DestinationX+10,DestinationY);
             g.drawLine(DestinationX,DestinationY-10,DestinationX,DestinationY+10);
@@ -50,14 +66,18 @@ public class ClickMap extends JFrame {
 		public void mouseExited(MouseEvent arg0) {
 			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		}
-		public void mouseClicked(MouseEvent e) {}
+		public void mouseClicked(MouseEvent e) {			
+			
+		}
 		public void mousePressed(MouseEvent e) {
 			DestinationX = e.getX();
 			DestinationY = e.getY();
-			Xdistance = abs(DestinationX-CurrentX);
+			Xdistance = Math.abs(DestinationX-CurrentX);
 			Automatic.mapRepaint();
 		}
-		public void mouseReleased(MouseEvent e) {}
+		public void mouseReleased(MouseEvent e) {
+			// TODO Auto-generated method stub
+		}
 	}
 	public double getLongitude() {
 		return CurrentX;
@@ -67,16 +87,16 @@ public class ClickMap extends JFrame {
 	}
 	public double getDirection() {
 		double directionAng;
-		directionAng = - toDegrees(atan((double)(DestinationX-CurrentX)/(double)(DestinationY-CurrentY)));
+		directionAng = - Math.toDegrees(Math.atan((double)(DestinationX-CurrentX)/(double)(DestinationY-CurrentY)));
 		if(DestinationY-CurrentY > 0) {
 				 directionAng = directionAng +180;
 			}
 		return directionAng;
 	}
 	public void changeLocation(double directiontheta) {
-		CurrentX += (int)boatspeed*sin(directiontheta);   								
-		CurrentY -= (int)boatspeed*cos(directiontheta);
-		Xdistance -= abs((int)boatspeed*sin(directiontheta));
+		CurrentX += (int)boatspeed*Math.sin(directiontheta);   								
+		CurrentY -= (int)boatspeed*Math.cos(directiontheta);
+		Xdistance -= Math.abs((int)boatspeed*Math.sin(directiontheta));
 		repaint();
 	}
 	public double getdistance() {
@@ -87,6 +107,7 @@ public class ClickMap extends JFrame {
     	CurrentY = DestinationY;
     	repaint();
 	}
+	
 	
 	/*public static void main(String[] args) {
 		ClickMap cm = new ClickMap();

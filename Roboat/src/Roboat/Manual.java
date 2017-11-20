@@ -100,5 +100,3 @@ public class Manual extends JPanel {
 		}
 	}
 }
-
-

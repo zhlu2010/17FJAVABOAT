@@ -1,4 +1,5 @@
 package Roboat;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.util.Timer;
@@ -21,14 +22,7 @@ public class Automatic extends JPanel {
 	private static ClickMap clickmap;
 	private static DrawDashBoard drawdashboard;
 
-	private void setCompassAngle() {
-		//		dashboard.setCompassAngle(Math.atan2(ClickMap.DestinationY-ClickMap.CurrentY, ClickMap.DestinationX-ClickMap.CurrentX));
-		//   							if (ClickMap.DestinationY-ClickMap.CurrentY > 0) {
-   	//							 DrawDashBoard.compassAngle = DrawDashBoard.compassAngle +180;
-   	//						}
-	}
-
-
+	
 	public Automatic() { //TODO: Too much in one function.  Break up.
 		setBounds(0, 0, 800, 400);
 		setLayout(null);
@@ -44,7 +38,7 @@ public class Automatic extends JPanel {
 		JLabel lblLongitude = new JLabel("Longitude");
 		lblLongitude.setBounds(50, 100, 80, 30);
 		add(lblLongitude);
-		Longitude = new JTextArea(""+400);
+		Longitude = new JTextArea(""+600.0);
 		Longitude.setEditable(false);
 		Longitude.setBounds(130, 100, 165, 30);
 		add(Longitude);
@@ -53,7 +47,7 @@ public class Automatic extends JPanel {
 		JLabel lblLatitude = new JLabel("Latitude");
 		lblLatitude.setBounds(50, 150, 80, 30);
 		add(lblLatitude);
-		Latitude = new JTextArea(""+250);
+		Latitude = new JTextArea(""+500.0);
 		Latitude.setEditable(false);
 		Latitude.setBounds(130, 150, 165, 30);
 		add(Latitude);
@@ -81,19 +75,9 @@ public class Automatic extends JPanel {
 		go.addActionListener(
 					new ActionListener() {
    						public void actionPerformed(ActionEvent e) {
-								/*
-									dashboard.setPropeller1Speed(100);
-									dashboard.setPropeller2Speed(100);
-									setCompass();
-
-								 */								
    							DrawDashBoard.setPropellor1Speed(100.0);
    							DrawDashBoard.setPropellor2Speed(100.0);
-								// TODO: this code should be hidden in the dashboard.  This si a detail of drawing a compass.
    							drawdashboard.resetCompass();
-
-
-								//TODO: setCompassAngle();
    								//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
    							drawdashboard.setCompassAngle(clickmap.getDirection());
 							double directiontheta = (clickmap.getDirection())*(Math.PI/180);					

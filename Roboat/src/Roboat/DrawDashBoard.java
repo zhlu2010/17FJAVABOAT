@@ -8,19 +8,26 @@ import static java.lang.Math.*;
  * everything on the boat is controlled here, except compass
  */
 class DrawDashBoard extends JFrame {
-	//TODO: These constants that are always the same can be final, static and convention is X_ROBOAT
     private final static int[] xRoboat = {200,100,100,300,300,200};
     private final static int[] yRoboat = {30, 300,700,700,300,30 };
-    private int[] xBattery = {195,195,185,185,215,215,205,205,195};
-    private int[] yBattery = {300,305,305,406,406,305,305,300,300};
-    private int[] xGas = {200,243,236,243,241};
-    private int[] yGas = {550,525,524,525,532};
-    private int[] xGasRot = xGas;
-    private int[] yGasRot = yGas;
     private final static int[] xPropellor1={130,130,125,130,125,130,135,130,135,130,130};
     private final static int[] yPropellor1={700,750,745,750,755,750,755,750,745,750,700};
     private final static int[] xPropellor2={270,270,265,270,265,270,275,270,275,270,270};
     private final static int[] yPropellor2={700,750,745,750,755,750,755,750,745,750,700};
+   
+    private int[] xBattery = {195,195,185,185,215,215,205,205,195};
+    private int[] yBattery = {300,305,305,406,406,305,305,300,300};
+    private int BatteryPower1 = 306;
+	private int BatteryPower2 = 100;
+	private int BatteryColorR=0;
+	private int BatteryColorG=255;
+	
+   
+	private int[] xGas = {200,243,236,243,241};
+    private int[] yGas = {550,525,524,525,532};
+    private int[] xGasRot = xGas;
+    private int[] yGasRot = yGas;
+	private double oilAngle = 0;
     
     private double xRudder1=200;
     private double yRudder1=700;
@@ -30,12 +37,8 @@ class DrawDashBoard extends JFrame {
     private double YY;
 	private static JLabel Propellor1speed;
 	private static JLabel Propellor2speed;
-	private int BatteryPower1 = 306;
-	private int BatteryPower2 = 100;
-	private int BatteryColorR=0;
-	private int BatteryColorG=255;
-	private double oilAngle = 0;
-		
+	
+	
 	private JLabel lblRudder;	
 	private static DrawCompass compass;
 	
@@ -65,10 +68,8 @@ class DrawDashBoard extends JFrame {
                       
         setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		//setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 
-	//TODO: convention is DashPanel
     class dashPanel extends JPanel {
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -80,6 +81,7 @@ class DrawDashBoard extends JFrame {
             g.drawString((BatteryPower2*100/100)+"%",186,420);
             g.drawArc(150, 500, 100, 100, 30, 120);
             g.drawPolyline(xGasRot, yGasRot, xGasRot.length);
+            g.drawString(((int)(oilAngle+120)*100/120)+"%",186,570);
             g.drawPolyline(xPropellor1, yPropellor1, xPropellor1.length);
             g.drawPolyline(xPropellor2, yPropellor2, xPropellor2.length);
             g.drawLine((int)xRudder1, (int)yRudder1, (int)xRudder2, (int)yRudder2);
@@ -133,7 +135,7 @@ class DrawDashBoard extends JFrame {
           } else return true;
     }
     public boolean oilReduce() {
-    	oilAngle -= 6; 
+    	oilAngle -= 1.2; 
        	Rotation RoilAngle = new Rotation(200,550,xGas,yGas,oilAngle);
 		xGasRot=RoilAngle.Xcoordinate();
 		yGasRot=RoilAngle.Ycoordinate();
