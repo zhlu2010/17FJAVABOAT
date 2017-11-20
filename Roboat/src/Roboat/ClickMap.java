@@ -41,7 +41,7 @@ public class ClickMap extends JFrame {
 
                 image=ImageIO.read(new File("map1.png"));
 
-                g.drawImage(image, 0, 0, 1200, 1000, null);
+                g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
             } catch (Exception e) {
 

@@ -1,4 +1,4 @@
-package TestRoboat;
+package Roboat;
 import javax.imageio.*;
 import java.awt.*;
 import java.awt.event.*;
