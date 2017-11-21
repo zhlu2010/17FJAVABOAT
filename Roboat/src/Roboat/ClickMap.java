@@ -12,8 +12,8 @@ import java.io.*;
  *set point on map, calculate the distance and change the current location
  */
 public class ClickMap extends JFrame {
-	private int CurrentX=600;
-	private int CurrentY=500;
+	private int CurrentX=355;
+	private int CurrentY=420;
 	private int DestinationX = CurrentX;
 	private int DestinationY = CurrentY;
 	private int Xdistance;
@@ -23,12 +23,11 @@ public class ClickMap extends JFrame {
 		super("map");
 		Container c = getContentPane();
 		setSize(1200,1000);
-		setLocation(850,150);
+		setLocation(700,10);
 		MyMouseListener ml=new MyMouseListener();
 		c.addMouseListener(ml);
 		MapPanel mappanel = new MapPanel();
 		c.add(mappanel);
-		
 		
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -38,22 +37,17 @@ public class ClickMap extends JFrame {
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);           
             try {
-
                 image=ImageIO.read(new File("map1.png"));
-
                 g.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
             } catch (Exception e) {
-
                 // TODO Auto-generated catch block
-
                 e.printStackTrace();
-
             }
-            g.setColor(Color.RED);
+            g.setColor(Color.red);
             g.drawLine(DestinationX-10,DestinationY,DestinationX+10,DestinationY);
             g.drawLine(DestinationX,DestinationY-10,DestinationX,DestinationY+10);
-            g.setColor(Color.black);
+            //g.setColor(Color.black);
             g.drawLine(CurrentX-10, CurrentY, CurrentX+10, CurrentY);
             g.drawLine(CurrentX, CurrentY-10, CurrentX, CurrentY+10);
             g.drawLine(CurrentX,CurrentY,DestinationX,DestinationY);
@@ -66,24 +60,20 @@ public class ClickMap extends JFrame {
 		public void mouseExited(MouseEvent arg0) {
 			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		}
-		public void mouseClicked(MouseEvent e) {			
-			
-		}
+		public void mouseClicked(MouseEvent e) {}
 		public void mousePressed(MouseEvent e) {
 			DestinationX = e.getX();
 			DestinationY = e.getY();
 			Xdistance = Math.abs(DestinationX-CurrentX);
 			Automatic.mapRepaint();
 		}
-		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
-		}
+		public void mouseReleased(MouseEvent e) {}
 	}
 	public double getLongitude() {
-		return CurrentX;
+		return 0.00002012*CurrentX-74.0325;
 	}
 	public double getLatitude() {
-		return CurrentY;
+		return -0.000028816*CurrentY+40.7523;
 	}
 	public double getDirection() {
 		double directionAng;
@@ -107,11 +97,4 @@ public class ClickMap extends JFrame {
     	CurrentY = DestinationY;
     	repaint();
 	}
-	
-	
-	/*public static void main(String[] args) {
-		ClickMap cm = new ClickMap();
-	
-		
-	}*/
 }

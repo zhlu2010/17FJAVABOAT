@@ -7,7 +7,7 @@ public class ControlPanel extends JFrame{
 	public ControlPanel() {
     	super("Control Panel");
     	setLayout(null);
-    	setBounds(550, 10, 800, 400);
+    	setBounds(300, 10, 400, 350);
     	Container c=getContentPane();
     	addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
@@ -20,11 +20,11 @@ public class ControlPanel extends JFrame{
     	Manual Manual = new Manual();
     	
     	JButton btnAuto=new JButton("Automatic");
-        btnAuto.setBounds(300, 10, 100, 30);
+        btnAuto.setBounds(50, 10, 100, 30);
 		JButton btnManual=new JButton("Manual");
-		btnManual.setBounds(450, 10, 100, 30);
+		btnManual.setBounds(200, 10, 100, 30);
 		JButton btnCharge=new JButton("Charge");
-		btnCharge.setBounds(670, 10, 100, 30);
+		btnCharge.setBounds(300, 60, 80, 30);
 
 		//TODO: Java convention use lowercase letters for variables btnAuto (good), Welcome -> welcome
 		btnAuto.addActionListener(new ActionListener() {

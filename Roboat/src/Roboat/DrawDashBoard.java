@@ -23,11 +23,11 @@ class DrawDashBoard extends JFrame {
 	private int BatteryColorG=255;
 	
    
-	private int[] xGas = {200,243,236,243,241};
-    private int[] yGas = {550,525,524,525,532};
-    private int[] xGasRot = xGas;
-    private int[] yGasRot = yGas;
-	private double oilAngle = 0;
+	private int[] xFuel = {200,243,236,243,241};
+    private int[] yFuel = {550,525,524,525,532};
+    private int[] xFuelRot = xFuel;
+    private int[] yFuelRot = yFuel;
+	private double fuelAngle = 0;
     
     private double xRudder1=200;
     private double yRudder1=700;
@@ -45,7 +45,7 @@ class DrawDashBoard extends JFrame {
     public DrawDashBoard() {
     	super("Dash Board");
     	setLayout(null);
-    	setBounds(0, 0, 500, 1000);
+    	setBounds(-40, 10, 350, 900);
     	Container c=getContentPane();
     	lblRudder = new JLabel("Rudder: "+90+"бу");
     	lblRudder.setBounds(160,660,150,30);
@@ -80,8 +80,8 @@ class DrawDashBoard extends JFrame {
             g.setColor(Color.black);
             g.drawString((BatteryPower2*100/100)+"%",186,420);
             g.drawArc(150, 500, 100, 100, 30, 120);
-            g.drawPolyline(xGasRot, yGasRot, xGasRot.length);
-            g.drawString(((int)(oilAngle+120)*100/120)+"%",186,570);
+            g.drawPolyline(xFuelRot, yFuelRot, xFuelRot.length);
+            g.drawString(((int)(fuelAngle+120)*100/120)+"%",186,570);
             g.drawPolyline(xPropellor1, yPropellor1, xPropellor1.length);
             g.drawPolyline(xPropellor2, yPropellor2, xPropellor2.length);
             g.drawLine((int)xRudder1, (int)yRudder1, (int)xRudder2, (int)yRudder2);
@@ -135,12 +135,12 @@ class DrawDashBoard extends JFrame {
           } else return true;
     }
     public boolean oilReduce() {
-    	oilAngle -= 1.2; 
-       	Rotation RoilAngle = new Rotation(200,550,xGas,yGas,oilAngle);
-		xGasRot=RoilAngle.Xcoordinate();
-		yGasRot=RoilAngle.Ycoordinate();
+    	fuelAngle -= 1.2; 
+       	Rotation RfuelAngle = new Rotation(200,550,xFuel,yFuel,fuelAngle);
+       	xFuelRot=RfuelAngle.Xcoordinate();
+       	yFuelRot=RfuelAngle.Ycoordinate();
 		repaint();
-		if(oilAngle<=-120) {
+		if(fuelAngle<=-120) {
 			return false;
 		}else return true;
 			
@@ -150,9 +150,9 @@ class DrawDashBoard extends JFrame {
 		BatteryColorG=255;
 		BatteryPower1 = 306;
 		BatteryPower2 = 100;
-		xGasRot = xGas;
-		yGasRot = yGas;				
-		oilAngle = 0;
+		xFuelRot = xFuel;
+		yFuelRot = yFuel;				
+		fuelAngle = 0;
 		repaint();
     }
  /* public static void main(String[] args) {

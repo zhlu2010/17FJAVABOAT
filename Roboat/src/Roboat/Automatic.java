@@ -30,7 +30,7 @@ public class Automatic extends JPanel {
 		drawdashboard = new DrawDashBoard();
 		
 		JLabel lblAuto = new JLabel("Auto Control"); //TODO: better layout??
-		lblAuto.setBounds(100, 0, 200, 100);
+		lblAuto.setBounds(30, 30, 200, 100);
 		lblAuto.setForeground(Color.red);
 		add(lblAuto);
 		
@@ -38,22 +38,22 @@ public class Automatic extends JPanel {
 		JLabel lblLongitude = new JLabel("Longitude");
 		lblLongitude.setBounds(50, 100, 80, 30);
 		add(lblLongitude);
-		Longitude = new JTextArea(""+600.0);
+		Longitude = new JTextArea(""+-74.025192);
 		Longitude.setEditable(false);
-		Longitude.setBounds(130, 100, 165, 30);
+		Longitude.setBounds(130, 100, 100, 30);
 		add(Longitude);
 		
 		
 		JLabel lblLatitude = new JLabel("Latitude");
 		lblLatitude.setBounds(50, 150, 80, 30);
 		add(lblLatitude);
-		Latitude = new JTextArea(""+500.0);
+		Latitude = new JTextArea(""+40.741735);
 		Latitude.setEditable(false);
-		Latitude.setBounds(130, 150, 165, 30);
+		Latitude.setBounds(130, 150, 100, 30);
 		add(Latitude);
 		
 		JButton map = new JButton("map");
-		map.setBounds(400,90,60,40);
+		map.setBounds(300,100,60,30);
 		add(map);
 		map.addActionListener(
 				new ActionListener() {
@@ -70,7 +70,7 @@ public class Automatic extends JPanel {
 			);
 		
 		JButton go = new JButton("go");
-		go.setBounds(400,140,50,40);
+		go.setBounds(300,150,50,30);
 		add(go);
 		go.addActionListener(
 					new ActionListener() {
