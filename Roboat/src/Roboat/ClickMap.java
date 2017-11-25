@@ -13,11 +13,10 @@ import java.util.ArrayList;
 public class ClickMap extends JFrame {
 	private int CurrentX=355;
 	private int CurrentY=420;
-	private int DestinationX;
-	private int DestinationY;
 	private int Xdistance;
 	private double boatspeed = 40;
 	private ArrayList<Point> points;
+	private Point current;
 	
 	public ClickMap() {
 		super("map");
@@ -29,6 +28,8 @@ public class ClickMap extends JFrame {
 		c.addMouseListener(ml);
 		MapPanel mappanel = new MapPanel();
 		c.add(mappanel);
+		current= new Point(CurrentX,CurrentY);
+		
 		
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -44,15 +45,20 @@ public class ClickMap extends JFrame {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
             }
-            g.setColor(Color.red);
-            g.drawLine(DestinationX-10,DestinationY,DestinationX+10,DestinationY);
-            g.drawLine(DestinationX,DestinationY-10,DestinationX,DestinationY+10);
-            g.drawLine(CurrentX-10, CurrentY, CurrentX+10, CurrentY);
-            g.drawLine(CurrentX, CurrentY-10, CurrentX, CurrentY+10);
+            g.setColor(Color.red);           
+            current.draw(g);
+            if(points.size()>0) 
+            	g.drawLine(CurrentX, CurrentY, points.get(0).getX(), points.get(0).getY());            	
+            for (int i = 0; i < points.size()-1; i++) {
+            	g.drawLine(points.get(i).getX(),points.get(i).getY(),points.get(i+1).getX(),points.get(i+1).getY());
+            }
+            for (Point p : points) {
+            	p.draw(g);
+            }
     	}
 	}
 	class MyMouseListener implements MouseListener {
-        private Point current;
+        private Point destination;
 		
 		public void mouseEntered(MouseEvent arg0) {
 			setCursor(new Cursor(Cursor.CROSSHAIR_CURSOR));
@@ -62,25 +68,19 @@ public class ClickMap extends JFrame {
 		}
 		public void mouseClicked(MouseEvent e) {}
 		public void mousePressed(MouseEvent e) {
-			Graphics g = getGraphics();
-			DestinationX = e.getX();
-			DestinationY = e.getY();   
-            g.setColor(Color.red);
-            g.drawLine(CurrentX,CurrentY,DestinationX,DestinationY);
-            current = new Point(CurrentX, CurrentY);
-            Xdistance = Math.abs(DestinationX-CurrentX);
-            CurrentX = DestinationX;
-            CurrentY = DestinationY;
-			//Automatic.mapRepaint();
+			
+            destination = new Point(e.getX(), e.getY());
+            points.add(destination);
+			Automatic.mapRepaint();
 		}
 		public void mouseReleased(MouseEvent e) {
-			Graphics g = getGraphics();
+			/*Graphics g = getGraphics();
             g.setXORMode(Color.yellow);
             current.draw(g);
             g.setPaintMode();
             current.setPoint(CurrentX, CurrentY);
             current.draw(g);
-            points.add(current);
+            points.add(current);*/
 		}
 		public void mouseDragged(MouseEvent e) {}
 	}
@@ -92,24 +92,43 @@ public class ClickMap extends JFrame {
 	}
 	public double getDirection() {
 		double directionAng;
-		directionAng = - Math.toDegrees(Math.atan((double)(DestinationX-CurrentX)/(double)(DestinationY-CurrentY)));
-		if(DestinationY-CurrentY > 0) {
-			directionAng = directionAng +180;
-		}
-		return directionAng;
+		if (points.size()>0) {
+				directionAng = - Math.toDegrees(Math.atan((double)(points.get(0).getX()-CurrentX)/(double)(points.get(0).getY()-CurrentY)));
+				if(points.get(0).getY()-CurrentY > 0) {
+					directionAng = directionAng +180;
+			}
+			return directionAng;
+		} else return 0;
 	}
-	public void changeLocation(double directiontheta) {
-		CurrentX += (int)boatspeed*Math.sin(directiontheta);   								
-		CurrentY -= (int)boatspeed*Math.cos(directiontheta);
+	public void changeLocation() {
+		double directiontheta = (getDirection())*(Math.PI/180);
 		Xdistance -= Math.abs((int)boatspeed*Math.sin(directiontheta));
+		if (Xdistance>0) {
+			CurrentX += (int)boatspeed*Math.sin(directiontheta);   								
+			CurrentY -= (int)boatspeed*Math.cos(directiontheta);
+			current.setLocation(CurrentX, CurrentY);        
+			
+		}else {
+			CurrentX = points.get(0).getX();
+			CurrentY = points.get(0).getY();
+			current.setLocation(CurrentX, CurrentY);
+			points.remove(0);
+			setDistance();
+		}
 		//repaint();
 	}
-	public double getdistance() {
+	public void setDistance() {
+		if (points.size()>0) {
+			Xdistance = Math.abs(points.get(0).getX()-CurrentX);
+		} else Xdistance = 0;
+	}
+	public double getDistance() {
 		return Xdistance;
 	}
-	public void arrived() {
-		CurrentX = DestinationX;
-    	CurrentY = DestinationY;
+	public boolean arrived() {
+		if(points.size()>0) {
+			return true;
+		}else return false;
     	//repaint();
 	}
 }

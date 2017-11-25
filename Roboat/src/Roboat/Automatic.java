@@ -75,26 +75,30 @@ public class Automatic extends JPanel {
 		go.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					System.out.println(clickmap.getDirection());
+					
 					DrawDashBoard.setPropellor1Speed(100.0);
 					DrawDashBoard.setPropellor2Speed(100.0);
 					drawdashboard.resetCompass();
+					clickmap.setDistance();
 					//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
-					drawdashboard.setCompassAngle(clickmap.getDirection());
-					double directiontheta = (clickmap.getDirection())*(Math.PI/180);					
+															
 					Timer timer = new Timer();
 				    timer.schedule(new TimerTask() {
-				    	public void run() {   				             
+				    	public void run() {   				    	
 				        	drawdashboard.batteryReduce();
 				            drawdashboard.oilReduce();
-							clickmap.changeLocation(directiontheta);
+							clickmap.changeLocation();
+							drawdashboard.resetCompass();
+							drawdashboard.setCompassAngle(clickmap.getDirection());
 							setLocation(clickmap.getLongitude(),clickmap.getLatitude());
 				            drawdashboard.repaint();
 				            clickmap.repaint();
-				            if(clickmap.getdistance()<=0) {
-  				        		clickmap.arrived();
+				            if(clickmap.arrived()==false) {
+  				        		//clickmap.arrived();
   				        		timer.cancel();   				        	  
   				            }
-				            if(drawdashboard.batteryReduce()&&drawdashboard.oilReduce()== false) {
+				    		if(drawdashboard.batteryReduce()== false) {
 				        		timer.cancel();
 				            }
 				        }
