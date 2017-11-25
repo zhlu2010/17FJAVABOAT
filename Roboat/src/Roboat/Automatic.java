@@ -75,8 +75,6 @@ public class Automatic extends JPanel {
 		go.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					System.out.println(clickmap.getDirection());
-					
 					DrawDashBoard.setPropellor1Speed(100.0);
 					DrawDashBoard.setPropellor2Speed(100.0);
 					drawdashboard.resetCompass();
