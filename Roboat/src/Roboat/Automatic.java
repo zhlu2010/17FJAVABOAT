@@ -56,52 +56,51 @@ public class Automatic extends JPanel {
 		map.setBounds(300,100,60,30);
 		add(map);
 		map.addActionListener(
-				new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						if (openmap == false) {
-							clickmap.setVisible(true);
-							openmap = true;
-						} else {
-							clickmap.setVisible(false);
-							openmap = false;
-						}
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					if (openmap == false) {
+						clickmap.setVisible(true);
+						openmap = true;
+					} else {
+						clickmap.setVisible(false);
+						openmap = false;
 					}
 				}
-			);
+			}
+		);
 		
 		JButton go = new JButton("go");
 		go.setBounds(300,150,50,30);
 		add(go);
 		go.addActionListener(
-					new ActionListener() {
-   						public void actionPerformed(ActionEvent e) {
-   							DrawDashBoard.setPropellor1Speed(100.0);
-   							DrawDashBoard.setPropellor2Speed(100.0);
-   							drawdashboard.resetCompass();
-   								//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
-   							drawdashboard.setCompassAngle(clickmap.getDirection());
-							double directiontheta = (clickmap.getDirection())*(Math.PI/180);					
-   							Timer timer = new Timer();
-   				        timer.schedule(new TimerTask() {
-   				            public void run() {   				             
-   				                drawdashboard.batteryReduce();
-   				            	drawdashboard.oilReduce();
-   								clickmap.changeLocation(directiontheta);
-   								setLocation(clickmap.getLongitude(),clickmap.getLatitude());
-   				            	drawdashboard.repaint();
-   				            	clickmap.repaint();
-   				            	if(clickmap.getdistance()<=0) {
-      				        	   clickmap.arrived();
-      				        	   timer.cancel();   				        	  
-      				           }
-      				         if(drawdashboard.batteryReduce()&&drawdashboard.oilReduce()== false) {
-   				        	    timer.cancel();
-      				           }
-   				          
-   				            }
-   				        },0,1000);	
-   						}
-   		        }
+			new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					DrawDashBoard.setPropellor1Speed(100.0);
+					DrawDashBoard.setPropellor2Speed(100.0);
+					drawdashboard.resetCompass();
+					//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
+					drawdashboard.setCompassAngle(clickmap.getDirection());
+					double directiontheta = (clickmap.getDirection())*(Math.PI/180);					
+					Timer timer = new Timer();
+				    timer.schedule(new TimerTask() {
+				    	public void run() {   				             
+				        	drawdashboard.batteryReduce();
+				            drawdashboard.oilReduce();
+							clickmap.changeLocation(directiontheta);
+							setLocation(clickmap.getLongitude(),clickmap.getLatitude());
+				            drawdashboard.repaint();
+				            clickmap.repaint();
+				            if(clickmap.getdistance()<=0) {
+  				        		clickmap.arrived();
+  				        		timer.cancel();   				        	  
+  				            }
+				            if(drawdashboard.batteryReduce()&&drawdashboard.oilReduce()== false) {
+				        		timer.cancel();
+				            }
+				        }
+				    },0,1000);	
+				}
+			}
    		);
 	}
 	public void setLocation(double x, double y) {
