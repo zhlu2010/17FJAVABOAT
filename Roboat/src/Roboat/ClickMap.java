@@ -4,7 +4,9 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
-import java.util.ArrayList;
+import java.util.*;
+import java.math.BigDecimal;
+import static java.lang.Math.*;
 /**
  * 
  * @author 95291
@@ -14,7 +16,7 @@ public class ClickMap extends JFrame {
 	private int CurrentX=355;
 	private int CurrentY=420;
 	private int Xdistance;
-	private double boatspeed = 40;
+	private Speed boatspeed=new Speed();
 	private ArrayList<Point> points;
 	private Point current;
 	
@@ -29,8 +31,7 @@ public class ClickMap extends JFrame {
 		MapPanel mappanel = new MapPanel();
 		c.add(mappanel);
 		current= new Point(CurrentX,CurrentY);
-		
-		
+
 		setVisible(true);
 		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
@@ -68,46 +69,41 @@ public class ClickMap extends JFrame {
 		}
 		public void mouseClicked(MouseEvent e) {}
 		public void mousePressed(MouseEvent e) {
-			
             destination = new Point(e.getX(), e.getY());
             points.add(destination);
 			Automatic.mapRepaint();
 		}
-		public void mouseReleased(MouseEvent e) {
-			/*Graphics g = getGraphics();
-            g.setXORMode(Color.yellow);
-            current.draw(g);
-            g.setPaintMode();
-            current.setPoint(CurrentX, CurrentY);
-            current.draw(g);
-            points.add(current);*/
-		}
+		public void mouseReleased(MouseEvent e) {}
 		public void mouseDragged(MouseEvent e) {}
 	}
 	public double getLongitude() {
-		return 0.00002012*CurrentX-74.0325;
+		double f=0.00002012*CurrentX-74.0325;  
+		BigDecimal b=new BigDecimal(f);  
+		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue();  
 	}
 	public double getLatitude() {
-		return -0.000028816*CurrentY+40.7523;
+		double f=-0.000028816*CurrentY+40.7523;  
+		BigDecimal b=new BigDecimal(f);  
+		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue(); 
 	}
 	public double getDirection() {
 		double directionAng;
 		if (points.size()>0) {
-				directionAng = - Math.toDegrees(Math.atan((double)(points.get(0).getX()-CurrentX)/(double)(points.get(0).getY()-CurrentY)));
-				if(points.get(0).getY()-CurrentY > 0) {
-					directionAng = directionAng +180;
+			directionAng = - Math.toDegrees(Math.atan((double)(points.get(0).getX()-CurrentX)/(double)(points.get(0).getY()-CurrentY)));
+			if(points.get(0).getY()-CurrentY > 0) {
+				directionAng = directionAng +180;
 			}
 			return directionAng;
 		} else return 0;
 	}
 	public void changeLocation() {
-		double directiontheta = (getDirection())*(Math.PI/180);
-		Xdistance -= Math.abs((int)boatspeed*Math.sin(directiontheta));
+		
+		double directiontheta = (getDirection())*(PI/180);
+		Xdistance -= abs(boatspeed.getSpeed()*sin(directiontheta));
 		if (Xdistance>0) {
-			CurrentX += (int)boatspeed*Math.sin(directiontheta);   								
-			CurrentY -= (int)boatspeed*Math.cos(directiontheta);
-			current.setLocation(CurrentX, CurrentY);        
-			
+			CurrentX += boatspeed.getSpeed()*sin(directiontheta);   								
+			CurrentY -= boatspeed.getSpeed()*cos(directiontheta);
+			current.setLocation(CurrentX, CurrentY);        	
 		}else {
 			CurrentX = points.get(0).getX();
 			CurrentY = points.get(0).getY();
@@ -115,11 +111,10 @@ public class ClickMap extends JFrame {
 			points.remove(0);
 			setDistance();
 		}
-		//repaint();
 	}
 	public void setDistance() {
 		if (points.size()>0) {
-			Xdistance = Math.abs(points.get(0).getX()-CurrentX);
+			Xdistance = abs(points.get(0).getX()-CurrentX);
 		} else Xdistance = 0;
 	}
 	public double getDistance() {
@@ -129,6 +124,5 @@ public class ClickMap extends JFrame {
 		if(points.size()>0) {
 			return true;
 		}else return false;
-    	//repaint();
 	}
 }

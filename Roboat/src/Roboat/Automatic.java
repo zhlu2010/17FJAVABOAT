@@ -18,6 +18,7 @@ public class Automatic extends JPanel {
 	//	private DrawDashBoard dashboard;
 	private JTextArea Longitude;
 	private JTextArea Latitude;
+	private JTextArea Speed;
 	private boolean openmap = true;
 	private static ClickMap clickmap;
 	private static DrawDashBoard drawdashboard;
@@ -34,7 +35,6 @@ public class Automatic extends JPanel {
 		lblAuto.setForeground(Color.red);
 		add(lblAuto);
 		
-		
 		JLabel lblLongitude = new JLabel("Longitude");
 		lblLongitude.setBounds(50, 100, 80, 30);
 		add(lblLongitude);
@@ -43,7 +43,6 @@ public class Automatic extends JPanel {
 		Longitude.setBounds(130, 100, 100, 30);
 		add(Longitude);
 		
-		
 		JLabel lblLatitude = new JLabel("Latitude");
 		lblLatitude.setBounds(50, 150, 80, 30);
 		add(lblLatitude);
@@ -51,6 +50,14 @@ public class Automatic extends JPanel {
 		Latitude.setEditable(false);
 		Latitude.setBounds(130, 150, 100, 30);
 		add(Latitude);
+		
+		JLabel lblSpeed = new JLabel("Speed");
+		lblSpeed.setBounds(50, 200, 80, 30);
+		add(lblSpeed);
+		Speed = new JTextArea(""+20);
+		Speed.setEditable(false);
+		Speed.setBounds(130, 200, 100, 30);
+		add(Speed);
 		
 		JButton map = new JButton("map");
 		map.setBounds(300,100,60,30);

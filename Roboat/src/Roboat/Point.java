@@ -9,7 +9,6 @@ public class Point {
 		this.x1 = x1; this.y1 = y1;
 	}
 	public void draw(Graphics g) {
-    	//g.drawLine(x1, y1);
 		g.setColor(Color.red);
     	g.drawLine(x1-10, y1, x1+10, y1);
         g.drawLine(x1, y1-10, x1, y1+10);
@@ -24,7 +23,6 @@ public class Point {
 	}
 	public void setLocation(int x , int y) {
 		x1 = x;
-		y1 = y;
-			
+		y1 = y;		
 	}
 }

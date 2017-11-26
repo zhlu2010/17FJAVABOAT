@@ -95,11 +95,11 @@ class DrawDashBoard extends JFrame {
     }
     public void setRudderAngle(double newRA) {
     	double rdang = 0;
-    	rdang = (newRA-90)*(Math.PI/180);
+    	rdang = (newRA-90)*(PI/180);
     	xRudder2=200;
 		yRudder2=740;
-		double mycos = Math.cos(rdang);
-        double mysin = Math.sin(rdang);
+		double mycos = cos(rdang);
+        double mysin = sin(rdang);
         XX = xRudder2 - xRudder1;
         YY = yRudder2 - yRudder1;
         xRudder2=(double)(-(XX*mycos-YY*mysin));
