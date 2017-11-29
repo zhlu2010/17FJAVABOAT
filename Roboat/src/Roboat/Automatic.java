@@ -94,7 +94,7 @@ public class Automatic extends JPanel {
 				        	drawdashboard.batteryReduce();
 				            drawdashboard.oilReduce();
 							clickmap.changeLocation();
-							drawdashboard.resetCompass();
+							//drawdashboard.resetCompass();
 							drawdashboard.setCompassAngle(clickmap.getDirection());
 							setLocation(clickmap.getLongitude(),clickmap.getLatitude());
 				            drawdashboard.repaint();
