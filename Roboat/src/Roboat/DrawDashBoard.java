@@ -133,7 +133,7 @@ class DrawDashBoard extends JFrame {
           } else return true;
     }
     public boolean fuelReduce() {
-    	fuelAngle -= 2.4; 
+    	fuelAngle -= 1.2; 
        	Rotation RfuelAngle = new Rotation(200,550,xFuel,yFuel,fuelAngle);
        	xFuelRot=RfuelAngle.Xcoordinate();
        	yFuelRot=RfuelAngle.Ycoordinate();
@@ -151,6 +151,12 @@ class DrawDashBoard extends JFrame {
 		yFuelRot = yFuel;				
 		fuelAngle = 0;
 		repaint();
+    }
+    public static double getPropellor1Speed() {
+    	return propellors.getPropellor1speed();
+    }
+    public static double getPropellor2Speed() {
+    	return propellors.getPropellor2speed();
     }
  /* public static void main(String[] args) {
 		new DrawDashBoard();

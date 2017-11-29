@@ -22,8 +22,7 @@ public class Automatic extends JPanel {
 	private boolean openmap = true;
 	private static ClickMap clickmap;
 	private static DrawDashBoard drawdashboard;
-	static double propellor1Speed=500;
-	static double propellor2Speed=500;
+	
 	
 	public Automatic() { //TODO: Too much in one function.  Break up.
 		setBounds(0, 0, 800, 400);
@@ -90,11 +89,11 @@ public class Automatic extends JPanel {
 					Timer timer = new Timer();
 				    timer.schedule(new TimerTask() {
 				    	public void run() {   				    	
-				        	drawdashboard.batteryReduce();
+				        	boolean battery = drawdashboard.batteryReduce();
 				            drawdashboard.fuelReduce();
 							clickmap.changeLocation();
-							drawdashboard.setPropellor1Speed(propellor1Speed);
-							drawdashboard.setPropellor2Speed(propellor2Speed);
+							drawdashboard.setPropellor1Speed(DrawDashBoard.getPropellor1Speed());
+							drawdashboard.setPropellor2Speed(DrawDashBoard.getPropellor2Speed());
 							//drawdashboard.resetCompass();
 							drawdashboard.setCompassAngle(clickmap.getDirection());
 							setLocation(clickmap.getLongitude(),clickmap.getLatitude());
@@ -104,7 +103,7 @@ public class Automatic extends JPanel {
   				        		//clickmap.arrived();
   				        		timer.cancel();   				        	  
   				            }
-				    		if(drawdashboard.batteryReduce()== false) {
+				    		if(battery== false) {
 				        		timer.cancel();
 				            }
 				        }
