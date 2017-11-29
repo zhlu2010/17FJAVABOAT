@@ -78,7 +78,7 @@ class DrawDashBoard extends JFrame {
             g.drawString((BatteryPower2*100/100)+"%",186,420);
             g.drawArc(150, 500, 100, 100, 30, 120);
             g.drawPolyline(xFuelRot, yFuelRot, xFuelRot.length);
-            g.drawString(((int)(fuelAngle+120)*100/120)+"%",186,570);
+            g.drawString((int)((fuelAngle+120)*100/120)+"%",186,570);
             g.drawLine((int)xRudder1, (int)yRudder1, (int)xRudder2, (int)yRudder2);
         }
     }
@@ -133,7 +133,7 @@ class DrawDashBoard extends JFrame {
           } else return true;
     }
     public boolean fuelReduce() {
-    	fuelAngle -= 1.2; 
+    	fuelAngle -= 2.4; 
        	Rotation RfuelAngle = new Rotation(200,550,xFuel,yFuel,fuelAngle);
        	xFuelRot=RfuelAngle.Xcoordinate();
        	yFuelRot=RfuelAngle.Ycoordinate();
