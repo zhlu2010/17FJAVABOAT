@@ -7,8 +7,6 @@ public class Rotation {
 	private int[] Ycoordinate;
 	public Rotation(int x1,int y1,int[] a, int[] b,double theta) {
 		theta = (theta)*(Math.PI/180);
-		//DrawDashBoard.xRudder2=200;
-		//DrawDashBoard.yRudder2=740;
 		double mycos = Math.cos(theta);
         double mysin = Math.sin(theta);
         XX = new int[a.length];

@@ -22,7 +22,8 @@ public class Automatic extends JPanel {
 	private boolean openmap = true;
 	private static ClickMap clickmap;
 	private static DrawDashBoard drawdashboard;
-
+	static double propellor1Speed=500;
+	static double propellor2Speed=500;
 	
 	public Automatic() { //TODO: Too much in one function.  Break up.
 		setBounds(0, 0, 800, 400);
@@ -82,9 +83,7 @@ public class Automatic extends JPanel {
 		go.addActionListener(
 			new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					DrawDashBoard.setPropellor1Speed(100.0);
-					DrawDashBoard.setPropellor2Speed(100.0);
-					drawdashboard.resetCompass();
+					//drawdashboard.resetCompass();
 					clickmap.setDistance();
 					//TODO: keep all angles internally as radians.  Only convert when reading from user or displaying
 															
@@ -92,9 +91,11 @@ public class Automatic extends JPanel {
 				    timer.schedule(new TimerTask() {
 				    	public void run() {   				    	
 				        	drawdashboard.batteryReduce();
-				            drawdashboard.oilReduce();
+				            drawdashboard.fuelReduce();
 							clickmap.changeLocation();
-							drawdashboard.resetCompass();
+							drawdashboard.setPropellor1Speed(propellor1Speed);
+							drawdashboard.setPropellor2Speed(propellor2Speed);
+							//drawdashboard.resetCompass();
 							drawdashboard.setCompassAngle(clickmap.getDirection());
 							setLocation(clickmap.getLongitude(),clickmap.getLatitude());
 				            drawdashboard.repaint();

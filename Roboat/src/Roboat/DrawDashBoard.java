@@ -10,10 +10,6 @@ import static java.lang.Math.*;
 class DrawDashBoard extends JFrame {
     private final static int[] xRoboat = {200,100,100,300,300,200};
     private final static int[] yRoboat = {30, 300,700,700,300,30 };
-    private final static int[] xPropellor1={130,130,125,130,125,130,135,130,135,130,130};
-    private final static int[] yPropellor1={700,750,745,750,755,750,755,750,745,750,700};
-    private final static int[] xPropellor2={270,270,265,270,265,270,275,270,275,270,270};
-    private final static int[] yPropellor2={700,750,745,750,755,750,755,750,745,750,700};
    
     private int[] xBattery = {195,195,185,185,215,215,205,205,195};
     private int[] yBattery = {300,305,305,406,406,305,305,300,300};
@@ -21,7 +17,6 @@ class DrawDashBoard extends JFrame {
 	private int BatteryPower2 = 100;
 	private int BatteryColorR=0;
 	private int BatteryColorG=255;
-	
    
 	private int[] xFuel = {200,243,236,243,241};
     private int[] yFuel = {550,525,524,525,532};
@@ -41,6 +36,7 @@ class DrawDashBoard extends JFrame {
 	
 	private JLabel lblRudder;	
 	private static DrawCompass compass;
+	private static DrawPropellors propellors;
 	
     public DrawDashBoard() {
     	super("Dash Board");
@@ -52,8 +48,11 @@ class DrawDashBoard extends JFrame {
     	dashPanel dashPanel=new dashPanel();
     	dashPanel.setBounds(-10,-20,400,800);
     	compass=new DrawCompass();
-        compass.setBounds(-10,-20,400,400);
+        compass.setBounds(-10,-20,400,800);
         c.add(compass);
+        propellors=new DrawPropellors();
+        propellors.setBounds(-10,-20,400,800);
+        c.add(propellors);
         c.add(lblRudder); c.add(dashPanel);
         
         dashPanel.setLayout(null);
@@ -67,9 +66,7 @@ class DrawDashBoard extends JFrame {
         Propellor2speed.setHorizontalAlignment(JTextField.CENTER);
                       
         setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
-
     class dashPanel extends JPanel {
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);
@@ -82,10 +79,8 @@ class DrawDashBoard extends JFrame {
             g.drawArc(150, 500, 100, 100, 30, 120);
             g.drawPolyline(xFuelRot, yFuelRot, xFuelRot.length);
             g.drawString(((int)(fuelAngle+120)*100/120)+"%",186,570);
-            g.drawPolyline(xPropellor1, yPropellor1, xPropellor1.length);
-            g.drawPolyline(xPropellor2, yPropellor2, xPropellor2.length);
             g.drawLine((int)xRudder1, (int)yRudder1, (int)xRudder2, (int)yRudder2);
-        } 
+        }
     }
     public void setCompassAngle(double newAngle) {
     	compass.setcompassAngel(newAngle);
@@ -93,6 +88,7 @@ class DrawDashBoard extends JFrame {
     public void resetCompass() {
     	compass.resetCompass();
     }
+    
     public void setRudderAngle(double newRA) {
     	double rdang = 0;
     	rdang = (newRA-90)*(PI/180);
@@ -109,11 +105,13 @@ class DrawDashBoard extends JFrame {
         lblRudder.setText("Rudder: "+newRA+"бу");
         repaint();
     }
-    public static void setPropellor1Speed(double p1sp) {
-    	Propellor1speed.setText(""+p1sp);
+    public void setPropellor1Speed(double propellor1Speed) {
+    	Propellor1speed.setText(""+propellor1Speed);
+    	propellors.Propellor1Rotate();
     }
-    public static void setPropellor2Speed(double p2sp) {
-    	Propellor2speed.setText(""+p2sp);
+    public void setPropellor2Speed(double propellor2Speed) {
+    	Propellor2speed.setText(""+propellor2Speed);
+    	propellors.Propellor2Rotate();
     }
     public boolean batteryReduce() {
     	BatteryPower1 +=1;
@@ -134,7 +132,7 @@ class DrawDashBoard extends JFrame {
         	 return false;
           } else return true;
     }
-    public boolean oilReduce() {
+    public boolean fuelReduce() {
     	fuelAngle -= 1.2; 
        	Rotation RfuelAngle = new Rotation(200,550,xFuel,yFuel,fuelAngle);
        	xFuelRot=RfuelAngle.Xcoordinate();
@@ -143,7 +141,6 @@ class DrawDashBoard extends JFrame {
 		if(fuelAngle<=-120) {
 			return false;
 		}else return true;
-			
     }
     public void reset() {
     	BatteryColorR=0;

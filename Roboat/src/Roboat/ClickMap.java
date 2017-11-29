@@ -33,10 +33,8 @@ public class ClickMap extends JFrame {
 		current= new Point(CurrentX,CurrentY);
 
 		setVisible(true);
-		setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
 	class MapPanel extends JPanel {
-		//Image image=null;
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);           
             try {
@@ -97,7 +95,6 @@ public class ClickMap extends JFrame {
 		} else return 0;
 	}
 	public void changeLocation() {
-		
 		double directiontheta = (getDirection())*(PI/180);
 		Xdistance -= abs(boatspeed.getSpeed()*sin(directiontheta));
 		if (Xdistance>0) {

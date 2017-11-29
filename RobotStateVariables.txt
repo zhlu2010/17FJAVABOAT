@@ -1,0 +1,37 @@
+Robot contains the following:
+
+GPS (lat,lon)  at least 8 digits of information 40.000000, -74.000001
+velocity from successive GPS readings: dx,dy
+course (from compass magnetic x,y,z)
+acceleration (ax,ay,az)
+rotation (rx,ry,rz)
+propeller revolution p1, p2 (in RPM?)
+rudder angle
+hydrofoil front angle (0 to maxangle, probably 100?)
+hydrofoil back angle (same)
+
+battery voltage
+battery life estimate? (in A-h? Joules?)
+solar panel voltage and current
+temperature
+current waypoint
+desired heading
+
+camera[n] last picture
+
+history of past readings
+history of all pictures
+
+list of waypoints
+
+Create a display to visualize all this information
+
+
+send commands:
+
+goto waypoint
+load new waypoints
+turn to 030 degrees
+
+take picture with camera n
+set propellor(i, speed)

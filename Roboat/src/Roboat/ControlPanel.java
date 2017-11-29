@@ -11,8 +11,13 @@ public class ControlPanel extends JFrame{
     	Container c=getContentPane();
     	addWindowListener(new WindowAdapter() {
 			public void windowClosing(WindowEvent e) {
-				JOptionPane.showConfirmDialog(ControlPanel.this, "Exit Control Panel?","Alert",JOptionPane.OK_CANCEL_OPTION);
-				
+				int Answer=JOptionPane.showConfirmDialog(ControlPanel.this, "Exit Control Panel?","Alert",JOptionPane.OK_CANCEL_OPTION);
+				if (Answer == JOptionPane.OK_OPTION) {
+	                System.exit(0);
+	            }
+				if (Answer == JOptionPane.CANCEL_OPTION) {
+					new ControlPanel();
+	            }
 			}
 		});
     	Welcome Welcome = new Welcome();
@@ -43,9 +48,7 @@ public class ControlPanel extends JFrame{
 		});
 		btnCharge.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Automatic.DrawDashBoardReset();				
-				DrawDashBoard.setPropellor1Speed(0);;
-				DrawDashBoard.setPropellor2Speed(0);;				
+				Automatic.DrawDashBoardReset();		
 				Automatic.DrawDashBoardRepaint();
 	            Automatic.mapRepaint();
 			}
@@ -57,6 +60,6 @@ public class ControlPanel extends JFrame{
 		Auto.setVisible(false);					
 		Manual.setVisible(false);
         setVisible(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 }

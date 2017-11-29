@@ -15,7 +15,6 @@ public class DrawCompass extends JPanel{
     private int[] yredCompassOrigin={170,200,200};
     private int[] xwhiteCompassOrigin={200,195,205};
     private int[] ywhiteCompassOrigin={230,200,200};
-    private double compassAngle = 0;
     
 	public void paintComponent(Graphics g) {
         g.drawOval(xCompass, yCompass, rCompass*2, rCompass*2);
@@ -48,10 +47,10 @@ public class DrawCompass extends JPanel{
         g.fillPolygon(xwhiteCompass, ywhiteCompass, xwhiteCompass.length); 
     }
 	public void setcompassAngel(double newAngle) {
-		Rotation redcompassAngle = new Rotation(200,200,xredCompass,yredCompass,newAngle);
+		Rotation redcompassAngle = new Rotation(200,200,xredCompassOrigin,yredCompassOrigin,newAngle);
 		xredCompass=redcompassAngle.Xcoordinate();
 		yredCompass=redcompassAngle.Ycoordinate();
-		Rotation whitecompassAngle = new Rotation(200,200,xwhiteCompass,ywhiteCompass,newAngle);
+		Rotation whitecompassAngle = new Rotation(200,200,xwhiteCompassOrigin,ywhiteCompassOrigin,newAngle);
 		xwhiteCompass=whitecompassAngle.Xcoordinate();
 		ywhiteCompass=whitecompassAngle.Ycoordinate();
 		repaint();

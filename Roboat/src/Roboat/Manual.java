@@ -12,7 +12,6 @@ public class Manual extends JPanel {
 	private JTextArea mtaPropellor2;
 	private JSlider sliderRudder;
 	
-	
 	public Manual() {
 		setLayout(null);
 		setBounds(0, 0, 800, 400);
@@ -24,7 +23,7 @@ public class Manual extends JPanel {
 		JLabel mlblSpeed = new JLabel("Speed");
 		mlblSpeed.setBounds(50, 100, 80, 30);
 		add(mlblSpeed);
-		mtaSpeed = new JTextArea("0");
+		mtaSpeed = new JTextArea("20");
 		mtaSpeed.setBounds(130, 100, 80, 30);
 		add(mtaSpeed);	
 		JButton mbtnSpeed=new JButton("ok");
@@ -58,7 +57,7 @@ public class Manual extends JPanel {
 		JLabel mlblPropellor1 = new JLabel("Propellor 1");
 		mlblPropellor1.setBounds(50, 200, 80, 30);
 		add(mlblPropellor1);
-		mtaPropellor1 = new JTextArea("0");
+		mtaPropellor1 = new JTextArea("500");
 		mtaPropellor1.setBounds(130, 200, 80, 30);
 		add(mtaPropellor1);
 		JButton mbtnPropellor1=new JButton("ok");
@@ -69,7 +68,7 @@ public class Manual extends JPanel {
 		JLabel mlblPropellor2 = new JLabel("Propellor 2");
 		mlblPropellor2.setBounds(50, 250, 80, 30);
 		add(mlblPropellor2);
-		mtaPropellor2 = new JTextArea("0");
+		mtaPropellor2 = new JTextArea("500");
 		mtaPropellor2.setBounds(130, 250, 80, 30);
 		add(mtaPropellor2);
 		JButton mbtnPropellor2=new JButton("ok");
@@ -89,14 +88,14 @@ public class Manual extends JPanel {
 		public void actionPerformed(ActionEvent e) {
 			double numPropellor1 = 0;						
 			numPropellor1 = (new Double(mtaPropellor1.getText())).doubleValue(); 
-			DrawDashBoard.setPropellor1Speed(numPropellor1);
+			//drawdashboard.setPropellor1Speed(numPropellor1);
 		}
 	}
     class mbtnPropellor2 implements ActionListener {
 		public void actionPerformed(ActionEvent e) {
 			double numPropellor2 = 0;						
 			numPropellor2 = (new Double(mtaPropellor2.getText())).doubleValue(); 
-			DrawDashBoard.setPropellor2Speed(numPropellor2);
+			//drawdashboard.setPropellor2Speed(numPropellor2);
 		}
 	}
 }
