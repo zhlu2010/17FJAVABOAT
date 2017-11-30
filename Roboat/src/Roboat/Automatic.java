@@ -92,9 +92,6 @@ public class Automatic extends JPanel {
 				        	boolean battery = drawdashboard.batteryReduce();
 				            drawdashboard.fuelReduce();
 							clickmap.changeLocation();
-							drawdashboard.setPropellor1Speed(DrawDashBoard.getPropellor1Speed());
-							drawdashboard.setPropellor2Speed(DrawDashBoard.getPropellor2Speed());
-							//drawdashboard.resetCompass();
 							drawdashboard.setCompassAngle(clickmap.getDirection());
 							setLocation(clickmap.getLongitude(),clickmap.getLatitude());
 				            drawdashboard.repaint();
@@ -107,7 +104,20 @@ public class Automatic extends JPanel {
 				        		timer.cancel();
 				            }
 				        }
-				    },0,1000);	
+				    },0,1000);
+				    Timer timer2 = new Timer();
+				    timer2.schedule(new TimerTask() {
+				    	public void run() {   				    	
+							drawdashboard.setPropellor1Speed(DrawDashBoard.getPropellor1Speed());
+							drawdashboard.setPropellor2Speed(DrawDashBoard.getPropellor2Speed());
+				            drawdashboard.repaint();
+				            clickmap.repaint();
+				            if(clickmap.arrived()==false) {
+  				        		//clickmap.arrived();
+				            	timer2.cancel();   				        	  
+  				            }
+				        }
+				    },0,100);	
 				}
 			}
    		);
