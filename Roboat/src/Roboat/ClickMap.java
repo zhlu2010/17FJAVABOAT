@@ -13,8 +13,8 @@ import static java.lang.Math.*;
  *set point on map, calculate the distance and change the current location
  */
 public class ClickMap extends JFrame {
-	private int CurrentX=355;
-	private int CurrentY=420;
+	private static int CurrentX=355;
+	private static int CurrentY=420;
 	private int Xdistance;
 	private Speed boatspeed=new Speed();
 	private ArrayList<Point> points;
@@ -74,12 +74,12 @@ public class ClickMap extends JFrame {
 		public void mouseReleased(MouseEvent e) {}
 		public void mouseDragged(MouseEvent e) {}
 	}
-	public double getLongitude() {
+	public static double getLongitude() {
 		double f=0.00002012*CurrentX-74.0325;  
 		BigDecimal b=new BigDecimal(f);  
 		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue();  
 	}
-	public double getLatitude() {
+	public static double getLatitude() {
 		double f=-0.000028816*CurrentY+40.7523;  
 		BigDecimal b=new BigDecimal(f);  
 		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue(); 

@@ -4,6 +4,11 @@ import java.awt.event.*;
 import javax.swing.*;
 
 public class ControlPanel extends JFrame{
+	private Welcome welcome;
+	private Automatic auto;
+	private Manual manual;
+	
+	
 	public ControlPanel() {
     	super("Control Panel");
     	setLayout(null);
@@ -20,9 +25,10 @@ public class ControlPanel extends JFrame{
 	            }
 			}
 		});
-    	Welcome Welcome = new Welcome();
-    	Automatic Auto = new Automatic();
-    	Manual Manual = new Manual();
+    	welcome = new Welcome();
+    	auto = new Automatic();
+    	manual = new Manual();
+    	
     	
     	JButton btnAuto=new JButton("Automatic");
         btnAuto.setBounds(50, 10, 100, 30);
@@ -34,16 +40,16 @@ public class ControlPanel extends JFrame{
 		//TODO: Java convention use lowercase letters for variables btnAuto (good), Welcome -> welcome
 		btnAuto.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Welcome.setVisible(false);
-				Auto.setVisible(true);					
-				Manual.setVisible(false);
+				welcome.setVisible(false);
+				auto.setVisible(true);					
+				manual.setVisible(false);
 			}
 		});
 		btnManual.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Welcome.setVisible(false);
-				Auto.setVisible(false);					
-				Manual.setVisible(true);
+				welcome.setVisible(false);
+				auto.setVisible(false);					
+				manual.setVisible(true);
 			}
 		});
 		btnCharge.addActionListener(new ActionListener() {
@@ -55,10 +61,10 @@ public class ControlPanel extends JFrame{
 		});
 		
 		c.add(btnAuto);c.add(btnManual);c.add(btnCharge);
-		c.add(Welcome);c.add(Auto);c.add(Manual);
-		Welcome.setVisible(true);
-		Auto.setVisible(false);					
-		Manual.setVisible(false);
+		c.add(welcome);c.add(auto);c.add(manual);
+		welcome.setVisible(true);
+		auto.setVisible(false);					
+		manual.setVisible(false);
         setVisible(true);
 		//setDefaultCloseOperation(EXIT_ON_CLOSE);
     }

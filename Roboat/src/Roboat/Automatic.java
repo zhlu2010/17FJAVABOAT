@@ -22,13 +22,14 @@ public class Automatic extends JPanel {
 	private boolean openmap = true;
 	private static ClickMap clickmap;
 	private static DrawDashBoard drawdashboard;
-	
+	private DashBoard dashboard;
 	
 	public Automatic() { //TODO: Too much in one function.  Break up.
 		setBounds(0, 0, 800, 400);
 		setLayout(null);
 		clickmap = new ClickMap();
 		drawdashboard = new DrawDashBoard();
+		dashboard=new DashBoard();
 		
 		JLabel lblAuto = new JLabel("Auto Control"); //TODO: better layout??
 		lblAuto.setBounds(30, 30, 200, 100);
@@ -96,6 +97,8 @@ public class Automatic extends JPanel {
 							setLocation(clickmap.getLongitude(),clickmap.getLatitude());
 				            drawdashboard.repaint();
 				            clickmap.repaint();
+				            dashboard.addData();
+				            
 				            if(clickmap.arrived()==false) {
   				        		//clickmap.arrived();
   				        		timer.cancel();   				        	  

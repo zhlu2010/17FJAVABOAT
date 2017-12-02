@@ -14,7 +14,7 @@ class DrawDashBoard extends JFrame {
     private int[] xBattery = {195,195,185,185,215,215,205,205,195};
     private int[] yBattery = {300,305,305,406,406,305,305,300,300};
     private int BatteryPower1 = 306;
-	private int BatteryPower2 = 100;
+	static int BatteryPower2 = 100;
 	private int BatteryColorR=0;
 	private int BatteryColorG=255;
    
@@ -22,7 +22,7 @@ class DrawDashBoard extends JFrame {
     private int[] yFuel = {550,525,524,525,532};
     private int[] xFuelRot = xFuel;
     private int[] yFuelRot = yFuel;
-	private double fuelAngle = 0;
+    static double fuelAngle = 0;
     
     private double xRudder1=200;
     private double yRudder1=700;
