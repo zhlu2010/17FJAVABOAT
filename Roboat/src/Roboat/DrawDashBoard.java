@@ -70,16 +70,23 @@ class DrawDashBoard extends JFrame {
     class dashPanel extends JPanel {
     	public void paintComponent(Graphics g) {
             super.paintComponent(g);
+            ((Graphics2D)g).setStroke(new BasicStroke(3));
             g.drawPolyline(xRoboat, yRoboat, xRoboat.length);
+            ((Graphics2D)g).setStroke(new BasicStroke(1));
             g.drawPolyline(xBattery, yBattery, xBattery.length);          
             g.setColor(new Color(BatteryColorR,BatteryColorG,0));
             g.fillRect(186, BatteryPower1, 29, BatteryPower2);
             g.setColor(Color.black);
             g.drawString((BatteryPower2*100/100)+"%",186,420);
+            ((Graphics2D)g).setStroke(new BasicStroke(2));
             g.drawArc(150, 500, 100, 100, 30, 120);
+            ((Graphics2D)g).setStroke(new BasicStroke(1));
             g.drawPolyline(xFuelRot, yFuelRot, xFuelRot.length);
             g.drawString((int)((fuelAngle+120)*100/120)+"%",186,570);
             g.drawLine((int)xRudder1, (int)yRudder1, (int)xRudder2, (int)yRudder2);
+            g.setColor(Color.red);
+            g.setFont(new java.awt.Font("Times New Roman",4,30));
+            g.drawString("Roboat",156,650);
         }
     }
     public void setCompassAngle(double newAngle) {

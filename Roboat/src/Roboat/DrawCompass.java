@@ -36,7 +36,7 @@ public class DrawCompass extends JPanel{
         for (int i = 0; i < 60; i++) {  
             int x5 = (int) ((rCompass - 2) * sin(rad * d));  
             int y5 = (int) ((rCompass - 2) * cos(rad * d));  
-            g.drawString(".", xCompass + rCompass + x5 - 1, xCompass + rCompass - y5 + 1);  
+            g.drawString(".", xCompass + rCompass + x5 - 1, xCompass + rCompass - y5 + 1);
             d += 6;  
         }
         g.setColor(Color.red);

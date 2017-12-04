@@ -76,13 +76,13 @@ public class ClickMap extends JFrame {
 	}
 	public static double getLongitude() {
 		double f=0.00002012*CurrentX-74.0325;  
-		BigDecimal b=new BigDecimal(f);  
-		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue();  
+		BigDecimal b=new BigDecimal(f);
+		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 	public static double getLatitude() {
 		double f=-0.000028816*CurrentY+40.7523;  
-		BigDecimal b=new BigDecimal(f);  
-		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue(); 
+		BigDecimal b=new BigDecimal(f);
+		return b.setScale(6,BigDecimal.ROUND_HALF_UP).doubleValue();
 	}
 	public double getDirection() {
 		double directionAng;
